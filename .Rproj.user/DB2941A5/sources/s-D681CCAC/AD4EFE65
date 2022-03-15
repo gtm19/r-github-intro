@@ -1,0 +1,31 @@
+{
+    "id": "AD4EFE65",
+    "path": "~/code/gtm19/r/r-github-intro/Setup.qmd",
+    "project_path": "Setup.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1647376134524.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "134,11",
+        "scrollLine": "79",
+        "rmdVisualMode": "true",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "3201:2196.800048828125",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "1"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1647383145,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1647383145409,
+    "read_only": false,
+    "read_only_alternatives": []
+}

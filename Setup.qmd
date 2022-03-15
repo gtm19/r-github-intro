@@ -1,0 +1,137 @@
+---
+title: "Setup"
+---
+
+How to set up for the workshop
+
+## Installing R
+
+R is a programming language, and [RStudio](https://www.rstudio.com/) is a popular GUI / editor for R. Here we will install both.
+
+::: callout-note
+Whilst you can (and, in fact, I usually do) use a different text editor for R, I strongly recommend starting with RStudio.
+:::
+
+### R
+
+Follow the installation instructions for your operating system below.
+
+::: panel-tabset
+## macOS
+
+Go the the [CRAN website](https://cran.r-project.org/bin/macosx/), download the `.pkg` installer, and run it.
+
+Alternatively, if you have [Homebrew installed](https://formulae.brew.sh/formula/r), you can run the following command in your terminal:
+
+``` bash
+brew install r
+```
+
+## Windows
+
+Go to the [CRAN website](https://cran.r-project.org/bin/windows/base/), download the `.exe` installer, and run it.
+
+## Linux (Ubuntu)
+
+Run the following commands in your terminal:
+
+``` bash
+# update indices
+sudo apt update -qq
+# install two helper packages we need
+sudo apt install --no-install-recommends software-properties-common dirmngr
+# add the signing key (by Michael Rutter) for these repos
+# To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc 
+# Fingerprint: 298A3A825C0D65DFD57CBB651716619E084DAB9
+wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed
+sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+```
+
+Followed by:
+
+``` bash
+sudo apt install --no-install-recommends r-base
+```
+
+More detail on these instructions can be found on the [CRAN website](https://cran.r-project.org/bin/linux/ubuntu/).
+:::
+
+### RStudio
+
+Go to the [RStudio website](https://www.rstudio.com/products/rstudio/download/#download) and download (and run) the appropriate installer for your operating system.
+
+## `git`
+
+### `git` itself
+
+Installation instructions for `git` can be found on [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). Abridged instructions are included below.
+
+::: panel-tabset
+## macOS
+
+Run the following command in your terminal:
+
+``` bash
+git --version
+```
+
+If you don't already have it installed, the terminal will prompt you to do so.
+
+## Windows
+
+Click [here](https://git-scm.com/download/win), download the appropriate *Standalone Installer* `.exe` file (depending on whether your system is 32 or 64 bit), and run it.
+
+## Linux (Ubuntu)
+
+Run the following command in your terminal:
+
+``` bash
+sudo apt install git-all
+```
+:::
+
+### GitHub
+
+#### Account creation
+
+You will need to [create an account](https://github.com/join) on GitHub (if you don't already have one).
+
+#### GitHub Command Line Interface (CLI)
+
+Installation instructions for GitHub's CLI can be found on the project's [GitHub repository](https://github.com/cli/cli#installation). A summary of the most useful commands/instructions is below.
+
+::: panel-tabset
+## macOS (+ `homebrew`)
+
+Run the following command in your terminal:
+
+``` bash
+brew install gh
+```
+
+## Windows
+
+Download one of the `.msi` or `.zip` files from the bottom of [this page](https://github.com/cli/cli/releases/tag/v2.6.0) and install.
+
+## Linux (Ubuntu)
+
+Run the following command(s) in your terminal:
+
+``` bash
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install gh
+```
+:::
+
+Once installed, log in by running
+
+``` bash
+gh auth login -w
+```
+
+### SSH key
+
+You should also (preferably) [create an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to your account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) (again, if you haven't already).

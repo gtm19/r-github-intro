@@ -1,0 +1,24 @@
+project:
+  type: website
+
+website:
+  title: "R & `git` Intro"
+  page-navigation: true
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - index.qmd
+      - Setup.qmd
+      - github.qmd
+      - r.qmd
+      - wrap-up.qmd
+format:
+  html:
+    toc: true
+    theme: cosmo
+    css: styles.css
+    
+
+
+
