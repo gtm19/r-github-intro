@@ -12,4 +12,18 @@ Why write a definition when you can simply lift one from Wikipedia[^1]?
 
 > Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development. Its goals include speed, data integrity, and support for distributed, non-linear workflows (thousands of parallel branches running on different systems).
 
-A little about `git` and GitHub
+In simple terms: software is simply a collection of text files, and adding to a software project essentially amounts to adding and removing lines of code. Git provides a way to track these modifications, and to bring together multiple sets of modifications from different developers: even when they have all (unbeknownst to them) been working on the same lines of code.
+
+It is most useful when working with others, but Git is also useful when working solo, since each modification can essentially be considered a snapshot of the project's progress, and this can be restored with ease.
+
+### What is GitHub?
+
+::: callout-important
+Git and GitHub are not the same thing! This cannot be overstated.
+:::
+
+If you're going to be working on a software project, using Git, with other developers, you need somewhere to store the "official" version of your code: to which individual developers will make changes as and when features are added.
+
+A bewildering number of developers use [GitHub](https://github.com){target="_blank"} for this purpose; the purpose being to act as a *remote repository* on which to store code.
+
+Alternatives (such as [GitLab](https://about.gitlab.com/){target="_blank"} and [Bitbucket](https://bitbucket.org/product){target="_blank"}), but they are nowhere near as widely used as GitHub.
