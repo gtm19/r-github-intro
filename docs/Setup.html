@@ -202,7 +202,7 @@
 <p>How to set up for the workshop</p>
 <section id="installing-r" class="level2">
 <h2 class="anchored" data-anchor-id="installing-r">Installing R</h2>
-<p>R is a programming language, and <a href="https://www.rstudio.com/">RStudio</a> is a popular GUI / editor for R. Here we will install both.</p>
+<p>R is a programming language, and <a href="https://www.rstudio.com/" target="_blank">RStudio</a> is a popular GUI / editor for R. Here we will install both.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -223,12 +223,12 @@ Note
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Linux (Ubuntu)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
-<p>Go the the <a href="https://cran.r-project.org/bin/macosx/">CRAN website</a>, download the <code>.pkg</code> installer, and run it.</p>
-<p>Alternatively, if you have <a href="https://formulae.brew.sh/formula/r">Homebrew installed</a>, you can run the following command in your terminal:</p>
+<p>Go the the <a href="https://cran.r-project.org/bin/macosx/" target="_blank">CRAN website</a>, download the <code>.pkg</code> installer, and run it.</p>
+<p>Alternatively, if you have <a href="https://formulae.brew.sh/formula/r" target="_blank">Homebrew installed</a>, you can run the following command in your terminal:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
-<p>Go to the <a href="https://cran.r-project.org/bin/windows/base/">CRAN website</a>, download the <code>.exe</code> installer, and run it.</p>
+<p>Go to the <a href="https://cran.r-project.org/bin/windows/base/" target="_blank">CRAN website</a>, download the <code>.exe</code> installer, and run it.</p>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-3-tab">
 <p>Run the following commands in your terminal:</p>
@@ -244,35 +244,37 @@ Note
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository <span class="st">"deb https://cloud.r-project.org/bin/linux/ubuntu </span><span class="va">$(</span><span class="ex">lsb_release</span> <span class="at">-cs</span><span class="va">)</span><span class="st">-cran40/"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Followed by:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">--no-install-recommends</span> r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>More detail on these instructions can be found on the <a href="https://cran.r-project.org/bin/linux/ubuntu/">CRAN website</a>.</p>
+<p>More detail on these instructions can be found on the <a href="https://cran.r-project.org/bin/linux/ubuntu/" target="_blank">CRAN website</a>.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="rstudio" class="level3">
 <h3 class="anchored" data-anchor-id="rstudio">RStudio</h3>
-<p>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio website</a> and download (and run) the appropriate installer for your operating system.</p>
+<p>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download" target="_blank">RStudio website</a> and download (and run) the appropriate installer for your operating system.</p>
+<p>Mac users with homebrew installed can also run the following in their terminal:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> rstudio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="git" class="level2">
 <h2 class="anchored" data-anchor-id="git"><code>git</code></h2>
 <section id="git-itself" class="level3">
 <h3 class="anchored" data-anchor-id="git-itself"><code>git</code> itself</h3>
-<p>Installation instructions for <code>git</code> can be found on <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">git-scm.com</a>. Abridged instructions are included below.</p>
+<p>Installation instructions for <code>git</code> can be found on <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank">git-scm.com</a>. Abridged instructions are included below.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Linux (Ubuntu)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-2-1-tab">
 <p>Run the following command in your terminal:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you don’t already have it installed, the terminal will prompt you to do so.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-2-tab">
-<p>Click <a href="https://git-scm.com/download/win">here</a>, download the appropriate <em>Standalone Installer</em> <code>.exe</code> file (depending on whether your system is 32 or 64 bit), and run it.</p>
+<p>Click <a href="https://git-scm.com/download/win" target="_blank">here</a>, download the appropriate <em>Standalone Installer</em> <code>.exe</code> file (depending on whether your system is 32 or 64 bit), and run it.</p>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labeledby="tabset-2-3-tab">
 <p>Run the following command in your terminal:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install git-all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install git-all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -281,37 +283,37 @@ Note
 <h3 class="anchored" data-anchor-id="github">GitHub</h3>
 <section id="account-creation" class="level4">
 <h4 class="anchored" data-anchor-id="account-creation">Account creation</h4>
-<p>You will need to <a href="https://github.com/join">create an account</a> on GitHub (if you don’t already have one).</p>
+<p>You will need to <a href="https://github.com/join" target="_blank">create an account</a> on GitHub (if you don’t already have one).</p>
 </section>
 <section id="github-command-line-interface-cli" class="level4">
 <h4 class="anchored" data-anchor-id="github-command-line-interface-cli">GitHub Command Line Interface (CLI)</h4>
-<p>Installation instructions for GitHub’s CLI can be found on the project’s <a href="https://github.com/cli/cli#installation">GitHub repository</a>. A summary of the most useful commands/instructions is below.</p>
+<p>Installation instructions for GitHub’s CLI can be found on the project’s <a href="https://github.com/cli/cli#installation" target="_blank">GitHub repository</a>. A summary of the most useful commands/instructions is below.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">macOS (+ <code>homebrew</code>)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Linux (Ubuntu)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-3-1-tab">
 <p>Run the following command in your terminal:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install gh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install gh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-3-2-tab">
-<p>Download one of the <code>.msi</code> or <code>.zip</code> files from the bottom of <a href="https://github.com/cli/cli/releases/tag/v2.6.0">this page</a> and install.</p>
+<p>Download one of the <code>.msi</code> or <code>.zip</code> files from the bottom of <a href="https://github.com/cli/cli/releases/tag/v2.6.0" target="_blank">this page</a> and install.</p>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labeledby="tabset-3-3-tab">
 <p>Run the following command(s) in your terminal:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://cli.github.com/packages/githubcli-archive-keyring.gpg <span class="kw">|</span> <span class="fu">sudo</span> dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"deb [arch=</span><span class="va">$(</span><span class="ex">dpkg</span> <span class="at">--print-architecture</span><span class="va">)</span><span class="st"> signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"</span> <span class="kw">|</span> <span class="fu">sudo</span> tee /etc/apt/sources.list.d/github-cli.list <span class="op">&gt;</span> /dev/null</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install gh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://cli.github.com/packages/githubcli-archive-keyring.gpg <span class="kw">|</span> <span class="fu">sudo</span> dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"deb [arch=</span><span class="va">$(</span><span class="ex">dpkg</span> <span class="at">--print-architecture</span><span class="va">)</span><span class="st"> signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"</span> <span class="kw">|</span> <span class="fu">sudo</span> tee /etc/apt/sources.list.d/github-cli.list <span class="op">&gt;</span> /dev/null</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install gh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 <p>Once installed, log in by running</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> auth login <span class="at">-w</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> auth login <span class="at">-w</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="ssh-key" class="level3">
 <h3 class="anchored" data-anchor-id="ssh-key">SSH key</h3>
-<p>You should also (preferably) <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">create an SSH key</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">add it to your account</a> (again, if you haven’t already).</p>
+<p>You should also (preferably) <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank">create an SSH key</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">add it to your account</a> (again, if you haven’t already).</p>
 
 
 </section>

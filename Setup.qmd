@@ -6,7 +6,7 @@ How to set up for the workshop
 
 ## Installing R
 
-R is a programming language, and [RStudio](https://www.rstudio.com/) is a popular GUI / editor for R. Here we will install both.
+R is a programming language, and [RStudio](https://www.rstudio.com/){target="_blank"} is a popular GUI / editor for R. Here we will install both.
 
 ::: callout-note
 Whilst you can (and, in fact, I usually do) use a different text editor for R, I strongly recommend starting with RStudio.
@@ -19,9 +19,9 @@ Follow the installation instructions for your operating system below.
 ::: panel-tabset
 ## macOS
 
-Go the the [CRAN website](https://cran.r-project.org/bin/macosx/), download the `.pkg` installer, and run it.
+Go the the [CRAN website](https://cran.r-project.org/bin/macosx/){target="_blank"}, download the `.pkg` installer, and run it.
 
-Alternatively, if you have [Homebrew installed](https://formulae.brew.sh/formula/r), you can run the following command in your terminal:
+Alternatively, if you have [Homebrew installed](https://formulae.brew.sh/formula/r){target="_blank"}, you can run the following command in your terminal:
 
 ``` bash
 brew install r
@@ -29,7 +29,7 @@ brew install r
 
 ## Windows
 
-Go to the [CRAN website](https://cran.r-project.org/bin/windows/base/), download the `.exe` installer, and run it.
+Go to the [CRAN website](https://cran.r-project.org/bin/windows/base/){target="_blank"}, download the `.exe` installer, and run it.
 
 ## Linux (Ubuntu)
 
@@ -54,18 +54,24 @@ Followed by:
 sudo apt install --no-install-recommends r-base
 ```
 
-More detail on these instructions can be found on the [CRAN website](https://cran.r-project.org/bin/linux/ubuntu/).
+More detail on these instructions can be found on the [CRAN website](https://cran.r-project.org/bin/linux/ubuntu/){target="_blank"}.
 :::
 
 ### RStudio
 
-Go to the [RStudio website](https://www.rstudio.com/products/rstudio/download/#download) and download (and run) the appropriate installer for your operating system.
+Go to the [RStudio website](https://www.rstudio.com/products/rstudio/download/#download){target="_blank"} and download (and run) the appropriate installer for your operating system.
+
+Mac users with homebrew installed can also run the following in their terminal:
+
+``` bash
+brew install --cask rstudio
+```
 
 ## `git`
 
 ### `git` itself
 
-Installation instructions for `git` can be found on [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). Abridged instructions are included below.
+Installation instructions for `git` can be found on [git-scm.com](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git){target="_blank"}. Abridged instructions are included below.
 
 ::: panel-tabset
 ## macOS
@@ -80,7 +86,7 @@ If you don't already have it installed, the terminal will prompt you to do so.
 
 ## Windows
 
-Click [here](https://git-scm.com/download/win), download the appropriate *Standalone Installer* `.exe` file (depending on whether your system is 32 or 64 bit), and run it.
+Click [here](https://git-scm.com/download/win){target="_blank"}, download the appropriate *Standalone Installer* `.exe` file (depending on whether your system is 32 or 64 bit), and run it.
 
 ## Linux (Ubuntu)
 
@@ -95,11 +101,11 @@ sudo apt install git-all
 
 #### Account creation
 
-You will need to [create an account](https://github.com/join) on GitHub (if you don't already have one).
+You will need to [create an account](https://github.com/join){target="_blank"} on GitHub (if you don't already have one).
 
 #### GitHub Command Line Interface (CLI)
 
-Installation instructions for GitHub's CLI can be found on the project's [GitHub repository](https://github.com/cli/cli#installation). A summary of the most useful commands/instructions is below.
+Installation instructions for GitHub's CLI can be found on the project's [GitHub repository](https://github.com/cli/cli#installation){target="_blank"}. A summary of the most useful commands/instructions is below.
 
 ::: panel-tabset
 ## macOS (+ `homebrew`)
@@ -112,7 +118,7 @@ brew install gh
 
 ## Windows
 
-Download one of the `.msi` or `.zip` files from the bottom of [this page](https://github.com/cli/cli/releases/tag/v2.6.0) and install.
+Download one of the `.msi` or `.zip` files from the bottom of [this page](https://github.com/cli/cli/releases/tag/v2.6.0){target="_blank"} and install.
 
 ## Linux (Ubuntu)
 
@@ -134,4 +140,4 @@ gh auth login -w
 
 ### SSH key
 
-You should also (preferably) [create an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and [add it to your account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) (again, if you haven't already).
+You should also (preferably) [create an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent){target="_blank"} and [add it to your account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account){target="_blank"} (again, if you haven't already).

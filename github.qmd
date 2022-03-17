@@ -1,5 +1,15 @@
 ---
-title: "`git` and GitHub"
+title: "Git and GitHub"
 ---
+
+## Introduction
+
+### What is Git?
+
+Why write a definition when you can simply lift one from Wikipedia[^1]?
+
+[^1]: [Wikipedia link](https://en.wikipedia.org/wiki/Git)
+
+> Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development. Its goals include speed, data integrity, and support for distributed, non-linear workflows (thousands of parallel branches running on different systems).
 
 A little about `git` and GitHub
