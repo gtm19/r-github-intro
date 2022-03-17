@@ -11,6 +11,69 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
 
   <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -121,6 +184,10 @@
 <li><a href="#what-is-git" class="nav-link" data-scroll-target="#what-is-git">What is Git?</a></li>
 <li><a href="#what-is-github" class="nav-link" data-scroll-target="#what-is-github">What is GitHub?</a></li>
 </ul></li>
+<li><a href="#basic-git-commands" class="nav-link" data-scroll-target="#basic-git-commands">Basic Git commands</a>
+<ul class="collapse">
+<li><a href="#git-clone" class="nav-link" data-scroll-target="#git-clone"><code>git clone</code></a></li>
+</ul></li>
 </ul>
 </nav>
     </div>
@@ -138,7 +205,7 @@
 <blockquote class="blockquote">
 <p>Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development. Its goals include speed, data integrity, and support for distributed, non-linear workflows (thousands of parallel branches running on different systems).</p>
 </blockquote>
-<p>In simple terms: software is simply a collection of text files, and adding to a software project essentially amounts to adding and removing lines of code. Git provides a way to track these modifications, and to bring together multiple sets of modifications from different developers: even when they have all (unbeknownst to them) been working on the same lines of code.</p>
+<p>In simple terms: software is simply a collection of text files with lines of code in them, and adding to a software project essentially amounts to adding and removing different lines of code. Git provides a way to track these modifications, and to bring together multiple sets of modifications from different developers: even when they have all (unbeknownst to them) been working on the same lines of code.</p>
 <p>It is most useful when working with others, but Git is also useful when working solo, since each modification can essentially be considered a snapshot of the project’s progress, and this can be restored with ease.</p>
 </section>
 <section id="what-is-github" class="level3">
@@ -159,6 +226,41 @@ Important
 <p>If you’re going to be working on a software project, using Git, with other developers, you need somewhere to store the “official” version of your code: to which individual developers will make changes as and when features are added.</p>
 <p>A bewildering number of developers use <a href="https://github.com" target="_blank">GitHub</a> for this purpose; the purpose being to act as a <em>remote repository</em> on which to store code.</p>
 <p>Alternatives (such as <a href="https://about.gitlab.com/" target="_blank">GitLab</a> and <a href="https://bitbucket.org/product" target="_blank">Bitbucket</a>), but they are nowhere near as widely used as GitHub.</p>
+</section>
+</section>
+<section id="basic-git-commands" class="level2">
+<h2 class="anchored" data-anchor-id="basic-git-commands">Basic Git commands</h2>
+<p>Git is an extremely powerful, and at times <a href="https://ohshitgit.com/" target="_blank">dangerously confusing</a> tool, but you can get surprisingly far with very few commands.</p>
+<p>In order to learn about them, you first need a repository to work with. In order to do this, you’re going to <em>fork</em> (basically create a copy) of one I created earlier:</p>
+<p><btn> <a href="https://github.com/gtm19/r-intro-exercises/fork"> Fork my repo </a> </btn></p>
+<p>You should now see a copy of this repository on your GitHub account. The next task is to download a copy to work on on your machine. For that, we need <code>git clone</code>.</p>
+<section id="git-clone" class="level3">
+<h3 class="anchored" data-anchor-id="git-clone"><code>git clone</code></h3>
+<p>If you open your repository, you should see a green <em>Code</em> button:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://docs.github.com/assets/cb-20363/images/help/repository/code-button.png" class="border img-fluid figure-img" alt="the green code button on GitHub" width="400"></p>
+</figure>
+</div>
+<p>Click on this to get your <code>url</code>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://docs.github.com/assets/cb-36330/images/help/repository/https-url-clone.png" class="border img-fluid figure-img" alt="git clone URL for a repo" width="400"></p>
+</figure>
+</div>
+<p>It should look something like <code>git@github.com:some-username/r-intro-exercises.git</code> or <code>https://github.com/some-username/r-intro-exercises.git</code></p>
+<p>Copy this, and go to the terminal / command line on your machine, and run the following:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone PASTE_YOUR_URL_HERE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should see something like the following:</p>
+<pre><code>Cloning into 'r-intro-exercises'...
+remote: Enumerating objects: 16, done.
+remote: Counting objects: 100% (16/16), done.
+remote: Compressing objects: 100% (10/10), done.
+remote: Total 16 (delta 0), reused 16 (delta 0), pack-reused 0
+Receiving objects: 100% (16/16), 8.14 KiB | 8.14 MiB/s, done.</code></pre>
+<p>Then navigate to that folder by running the following in your terminal:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> r-intro-exercises</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You are now inside a directory which is a copy of the remote repository on your GitHub. You will be making changes to the files in these directories locally and pushing them back to your remote repository once you’re happy with them.</p>
 
 
 </section>
@@ -244,6 +346,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script>
 <nav class="page-navigation">
