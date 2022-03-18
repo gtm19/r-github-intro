@@ -240,6 +240,154 @@ This output says there are changes to be committed - this is the final stage in 
 
 ### `git commit`
 
+Now the changes have been staged, we are ready to commit them.
+
+Most of the time, you will use `git commit` with the *message* flag, as follows:
+
+``` bash
+git commit -m "PUT YOUR MESSAGE HERE"
+```
+
+So, in this case, maybe you'd want to do something like:
+
+``` bash
+git commit -m "uncomment body of dbl_fun function"
+```
+
+This will product output like:
+
+``` bash
+[main 3453a03] uncomment body of dbl_fun function
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+And running `git status` again shows we're back to the first stage in the workflow, but that now we're 1 commit ahead than the `origin` (i.e. remote) version of our repository. To update that, we will need `git push`.
+
+``` bash
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+
+### `git push`
+
+Git push applies the updates from the local version of your repository to the corresponding branch of the remote repository.
+
+If (as we are here) we are on the `main` branch, and (as is often the case) the shorthand name being used for our remote repository is `origin`, then updating the remote repository is done like so:
+
+``` bash
+git push origin main
+```
+
+This will produce something like:
+
+``` bash
+Enumerating objects: 23, done.
+Counting objects: 100% (23/23), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (13/13), 148.52 KiB | 2.75 MiB/s, done.
+Total 13 (delta 8), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (8/8), completed with 6 local objects.
+To github.com:gtm19/r-intro-exercises.git
+   f510bcf..5f00bd1  main -> main
+```
+
+If, on the other hand, you know the remote version of the repository is more up to date than your local version (if, say, another developer had made changes), then you need to incorporate those changes into the local version using `git pull`.
+
+### `git pull`
+
+This command is basically the antagonist to `git push`:
+
+``` bash
+git pull origin main
+```
+
+Which will produce output like this:
+
+``` bash
+From github.com:gtm19/r-intro-exercises
+ * branch            github     -> FETCH_HEAD
+Already up to date.
+```
+
+The output would be more exciting if some changes had actually been made remotely.
+
+### `git branch`
+
+Usually, when adding a new feature, you would create a new branch of your repository: which allows you to add to what is already in the repo, only folding your changes back into the main branch when you're sure they're correct.
+
+In order to create a new branch (in our case, to add a function which triples a number), use the following command:
+
+``` bash
+git branch add-triple
+```
+
+Then you need to *checkout* your new branch:
+
+``` bash
+git checkout add-triple
+```
+
+Now running the command `git branch` with nothing else shows you which branch you're on:
+
+``` bash
+git branch
+# * add-triple
+#   main
+```
+
+Copy and paste the following into the `exercises/exercises_000.R` file, and save it:
+
+``` r
+triple_fun <- function(number) {
+  number * 3
+}
+```
+
+Then `git add`, and `git commit` as usual.
+
+Now the new feature has been added, it needs to be incorporated into the main branch. `git merge` is the command to do this.
+
+### `git merge`
+
+Using `git merge`, you create a new commit on an existing branch, which adds in all the new stuff from another branch.
+
+Before you start, you need to switch back to the *receiving* branch (`main`, in this case):
+
+``` bash
+git checkout main
+```
+
+...and then merge in the feature branch...
+
+``` bash
+git merge add-triple
+```
+
+``` bash
+Updating 3453a03..d3ce0f1
+Fast-forward
+ exercises/exercises_000.R | 4 ++++
+ 1 file changed, 4 insertions(+)
+```
+
+You can then delete your feature branch, since the changes have now been incorporated:
+
+``` bash
+git branch -d add-triple
+```
+
+#### Pull Requests
+
+In reality, often developers do not merge changes into `main` locally and then push them to the remote repository - since often the remote repository is the absolute version of the code, from which the app is deployed.
+
+Instead, you would create a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) on GitHub and ask them to review and (if they're happy) approve your request, merging and deleting the feature branch.
+
+For now, this is beyond the scope of this workshop.
+
 ## Further Reading
 
 -   [Pro Git book](https://git-scm.com/book/en/v2 "A comprehensive guide to using Git")

@@ -190,6 +190,10 @@
 <li><a href="#git-status" class="nav-link" data-scroll-target="#git-status"><code>git status</code></a></li>
 <li><a href="#git-add" class="nav-link" data-scroll-target="#git-add"><code>git add</code></a></li>
 <li><a href="#git-commit" class="nav-link" data-scroll-target="#git-commit"><code>git commit</code></a></li>
+<li><a href="#git-push" class="nav-link" data-scroll-target="#git-push"><code>git push</code></a></li>
+<li><a href="#git-pull" class="nav-link" data-scroll-target="#git-pull"><code>git pull</code></a></li>
+<li><a href="#git-branch" class="nav-link" data-scroll-target="#git-branch"><code>git branch</code></a></li>
+<li><a href="#git-merge" class="nav-link" data-scroll-target="#git-merge"><code>git merge</code></a></li>
 </ul></li>
 <li><a href="#further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
 </ul>
@@ -410,6 +414,85 @@ Caution
 </section>
 <section id="git-commit" class="level3">
 <h3 class="anchored" data-anchor-id="git-commit"><code>git commit</code></h3>
+<p>Now the changes have been staged, we are ready to commit them.</p>
+<p>Most of the time, you will use <code>git commit</code> with the <em>message</em> flag, as follows:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"PUT YOUR MESSAGE HERE"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So, in this case, maybe you’d want to do something like:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"uncomment body of dbl_fun function"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will product output like:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[main</span> 3453a03] uncomment body of dbl_fun function</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">1</span> file changed, 1 insertion<span class="er">(</span><span class="ex">+</span><span class="kw">)</span><span class="ex">,</span> 1 deletion<span class="er">(</span><span class="ex">-</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>And running <code>git status</code> again shows we’re back to the first stage in the workflow, but that now we’re 1 commit ahead than the <code>origin</code> (i.e.&nbsp;remote) version of our repository. To update that, we will need <code>git push</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">On</span> branch main</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Your</span> branch is ahead of <span class="st">'origin/main'</span> by 1 commit.</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git push"</span> to publish your local commits<span class="kw">)</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">nothing</span> to commit, working tree clean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="git-push" class="level3">
+<h3 class="anchored" data-anchor-id="git-push"><code>git push</code></h3>
+<p>Git push applies the updates from the local version of your repository to the corresponding branch of the remote repository.</p>
+<p>If (as we are here) we are on the <code>main</code> branch, and (as is often the case) the shorthand name being used for our remote repository is <code>origin</code>, then updating the remote repository is done like so:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will produce something like:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Enumerating</span> objects: 23, done.</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Counting</span> objects: 100% <span class="er">(</span><span class="ex">23/23</span><span class="kw">)</span><span class="ex">,</span> done.</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Delta</span> compression using up to 12 threads</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Compressing</span> objects: 100% <span class="er">(</span><span class="ex">12/12</span><span class="kw">)</span><span class="ex">,</span> done.</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Writing</span> objects: 100% <span class="er">(</span><span class="ex">13/13</span><span class="kw">)</span><span class="ex">,</span> 148.52 KiB <span class="kw">|</span> <span class="ex">2.75</span> MiB/s, done.</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Total</span> 13 <span class="er">(</span><span class="ex">delta</span> 8<span class="kw">)</span><span class="ex">,</span> reused 0 <span class="er">(</span><span class="ex">delta</span> 0<span class="kw">)</span><span class="ex">,</span> pack-reused 0</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="ex">remote:</span> Resolving deltas: 100% <span class="er">(</span><span class="ex">8/8</span><span class="kw">)</span><span class="ex">,</span> completed with 6 local objects.</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="ex">To</span> github.com:gtm19/r-intro-exercises.git</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>   <span class="ex">f510bcf..5f00bd1</span>  main <span class="at">-</span><span class="op">&gt;</span> main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If, on the other hand, you know the remote version of the repository is more up to date than your local version (if, say, another developer had made changes), then you need to incorporate those changes into the local version using <code>git pull</code>.</p>
+</section>
+<section id="git-pull" class="level3">
+<h3 class="anchored" data-anchor-id="git-pull"><code>git pull</code></h3>
+<p>This command is basically the antagonist to <code>git push</code>:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull origin main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Which will produce output like this:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">From</span> github.com:gtm19/r-intro-exercises</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a> <span class="ex">*</span> branch            github     <span class="at">-</span><span class="op">&gt;</span> FETCH_HEAD</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Already</span> up to date.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output would be more exciting if some changes had actually been made remotely.</p>
+</section>
+<section id="git-branch" class="level3">
+<h3 class="anchored" data-anchor-id="git-branch"><code>git branch</code></h3>
+<p>Usually, when adding a new feature, you would create a new branch of your repository: which allows you to add to what is already in the repo, only folding your changes back into the main branch when you’re sure they’re correct.</p>
+<p>In order to create a new branch (in our case, to add a function which triples a number), use the following command:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch add-triple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then you need to <em>checkout</em> your new branch:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout add-triple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now running the command <code>git branch</code> with nothing else shows you which branch you’re on:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># * add-triple</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   main</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Copy and paste the following into the <code>exercises/exercises_000.R</code> file, and save it:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>triple_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(number) {</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  number <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then <code>git add</code>, and <code>git commit</code> as usual.</p>
+<p>Now the new feature has been added, it needs to be incorporated into the main branch. <code>git merge</code> is the command to do this.</p>
+</section>
+<section id="git-merge" class="level3">
+<h3 class="anchored" data-anchor-id="git-merge"><code>git merge</code></h3>
+<p>Using <code>git merge</code>, you create a new commit on an existing branch, which adds in all the new stuff from another branch.</p>
+<p>Before you start, you need to switch back to the <em>receiving</em> branch (<code>main</code>, in this case):</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> checkout main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>…and then merge in the feature branch…</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> merge add-triple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Updating</span> 3453a03..d3ce0f1</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Fast-forward</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">exercises/exercises_000.R</span> <span class="kw">|</span> <span class="ex">4</span> ++++</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">1</span> file changed, 4 insertions<span class="er">(</span><span class="ex">+</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can then delete your feature branch, since the changes have now been incorporated:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> branch <span class="at">-d</span> add-triple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="pull-requests" class="level4">
+<h4 class="anchored" data-anchor-id="pull-requests">Pull Requests</h4>
+<p>In reality, often developers do not merge changes into <code>main</code> locally and then push them to the remote repository - since often the remote repository is the absolute version of the code, from which the app is deployed.</p>
+<p>Instead, you would create a <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull request</a> on GitHub and ask them to review and (if they’re happy) approve your request, merging and deleting the feature branch.</p>
+<p>For now, this is beyond the scope of this workshop.</p>
+</section>
 </section>
 </section>
 <section id="further-reading" class="level2">
