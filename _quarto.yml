@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "R & `git` Intro"
+  title: "R & Git Intro"
   page-navigation: true
   sidebar:
     style: docked

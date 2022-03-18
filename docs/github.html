@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.76">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>R &amp; git Intro - Git and GitHub</title>
+  <title>R &amp; Git Intro - Git and GitHub</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -136,7 +136,7 @@
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">R &amp; <code>git</code> Intro</a> 
+      <a href="./">R &amp; Git Intro</a> 
     </div>
       </div>
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -187,7 +187,11 @@
 <li><a href="#basic-git-commands" class="nav-link" data-scroll-target="#basic-git-commands">Basic Git commands</a>
 <ul class="collapse">
 <li><a href="#git-clone" class="nav-link" data-scroll-target="#git-clone"><code>git clone</code></a></li>
+<li><a href="#git-status" class="nav-link" data-scroll-target="#git-status"><code>git status</code></a></li>
+<li><a href="#git-add" class="nav-link" data-scroll-target="#git-add"><code>git add</code></a></li>
+<li><a href="#git-commit" class="nav-link" data-scroll-target="#git-commit"><code>git commit</code></a></li>
 </ul></li>
+<li><a href="#further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
 </ul>
 </nav>
     </div>
@@ -231,6 +235,19 @@ Important
 <section id="basic-git-commands" class="level2">
 <h2 class="anchored" data-anchor-id="basic-git-commands">Basic Git commands</h2>
 <p>Git is an extremely powerful, and at times <a href="https://ohshitgit.com/" target="_blank">dangerously confusing</a> tool, but you can get surprisingly far with very few commands.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a far from comprehensive list of Git commands. See <a href="#further-reading">Further Reading</a> for more thorough guides</p>
+</div>
+</div>
 <p>In order to learn about them, you first need a repository to work with. In order to do this, you’re going to <em>fork</em> (basically create a copy) of one I created earlier:</p>
 <p><btn> <a href="https://github.com/gtm19/r-intro-exercises/fork"> Fork my repo </a> </btn></p>
 <p>You should now see a copy of this repository on your GitHub account. The next task is to download a copy to work on on your machine. For that, we need <code>git clone</code>.</p>
@@ -261,15 +278,155 @@ Receiving objects: 100% (16/16), 8.14 KiB | 8.14 MiB/s, done.</code></pre>
 <p>Then navigate to that folder by running the following in your terminal:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> r-intro-exercises</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>You are now inside a directory which is a copy of the remote repository on your GitHub. You will be making changes to the files in these directories locally and pushing them back to your remote repository once you’re happy with them.</p>
-
-
+<section id="opening-the-project-in-rstudio" class="level4">
+<h4 class="anchored" data-anchor-id="opening-the-project-in-rstudio">Opening the project in RStudio</h4>
+<p>Next you’ll want to open the project in RStudio.</p>
+<p>Fire up RStudio and click on the menu in the top right, then <code>Open Project…</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/paste-575F7103.png" class="img-fluid figure-img" width="400"></p>
+</figure>
+</div>
+<p>Navigate to the directory where you cloned your repository above, and select the <code>.Rproj</code> file within it.</p>
+<p>If you have any issues opening this project, take a look at this help documentation from <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">RStudio</a>.</p>
+<p>When you first open the project, you’ll see some output in the R console like this:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">renv</span> library out of date <span class="at">-</span> automatically restoring...</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">The</span> following package<span class="er">(</span><span class="ex">s</span><span class="kw">)</span> <span class="ex">will</span> be updated:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># CRAN ===============================</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> R6           [<span class="pp">*</span> <span class="at">-</span><span class="op">&gt;</span> 2.5.1]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> brio         [<span class="pp">*</span> <span class="at">-</span><span class="op">&gt;</span> 1.1.3]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> waldo        [<span class="pp">*</span> <span class="at">-</span><span class="op">&gt;</span> 0.4.0]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">-</span> withr        [<span class="pp">*</span> <span class="at">-</span><span class="op">&gt;</span> 2.5.0]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Do</span> you want to proceed<span class="pp">?</span> [y/N]: </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Type <code>y</code> and hit <kbd>Enter</kbd>.</p>
+<p>Go back to your terminal / command prompt and run:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> test.R <span class="at">--example</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This should output something like the following:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">══</span> Testing test-exercises_000.R ════════════════════════════════════════════════════════════</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> FAIL 3 <span class="er">|</span> <span class="er">WARN</span> <span class="ex">0</span> <span class="kw">|</span> <span class="ex">SKIP</span> 0 <span class="kw">|</span> <span class="ex">PASS</span> 0 ]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Failure <span class="er">(</span><span class="ex">test-exercises_000.R:4:3</span><span class="kw">)</span><span class="bu">:</span> dbl_fun works ───────────────────────────</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">dbl_fun</span><span class="er">(</span><span class="ex">2</span><span class="kw">)</span> <span class="ex">not</span> equal to 4.</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">target</span> is NULL, current is numeric</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Failure <span class="er">(</span><span class="ex">test-exercises_000.R:5:3</span><span class="kw">)</span><span class="bu">:</span> dbl_fun works ───────────────────────────</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">dbl_fun</span><span class="er">(</span><span class="ex">100</span><span class="kw">)</span> <span class="ex">not</span> equal to 200.</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">target</span> is NULL, current is numeric</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ex">──</span> Failure <span class="er">(</span><span class="ex">test-exercises_000.R:6:3</span><span class="kw">)</span><span class="bu">:</span> dbl_fun works ───────────────────────────</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">dbl_fun</span><span class="er">(</span><span class="ex">402</span><span class="kw">)</span> <span class="ex">not</span> equal to 804.</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ex">target</span> is NULL, current is numeric</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span> FAIL 3 <span class="er">|</span> <span class="er">WARN</span> <span class="ex">0</span> <span class="kw">|</span> <span class="ex">SKIP</span> 0 <span class="kw">|</span> <span class="ex">PASS</span> 0 ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Don’t worry that these are all failing at the moment: we will be fixing these problems momentarily.</p>
 </section>
+</section>
+<section id="git-status" class="level3">
+<h3 class="anchored" data-anchor-id="git-status"><code>git status</code></h3>
+<p>For a command which technically does nothing, <code>git status</code> is very important. It is incredibly easy to cause a lot of damage to your project by running certain commands whilst making assumptions (but not checking) what the current status of your repository is.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As a rule of thumb, try to run <code>git status</code> before and after <em>any other Git operation</em>. It could save you a lot of heartache.</p>
+</div>
+</div>
+<p>You run it by running the following in your terminal / command prompt:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You should get output which looks something like this:</p>
+<pre><code>On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean</code></pre>
+<p>This means that you haven’t done anything locally beyond that which exists in the remote repository.</p>
+<p>Before we continue, it is worth understanding the workflow of Git, by looking at the following diagram, from the Git documentation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://git-scm.com/book/en/v2/images/areas.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>You start over on the left: in your working directory, with no changes to your existing files. Then, you make changes to your files, and you save them. At this point, you have done nothing different than you would when making incremental changes to (say) a Microsoft Word document.</p>
+<div class="callout-caution callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Probably don’t use Git to manage projects with Microsoft Word documents: they might look like it, but they are not just text files.</p>
+</div>
+</div>
+</section>
+<section id="git-add" class="level3">
+<h3 class="anchored" data-anchor-id="git-add"><code>git add</code></h3>
+<p><code>git add</code> is the command you use to add modified files to the <em>Staging Area</em>. In order for it to do anything, you first need to modify a file.</p>
+<p>Open up <code>exercises/exercises_000.R</code> in RStudio in your cloned repository, and you should see the following:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' make changes to the function below to make it double any number</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dbl_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(number) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># REMOVE THE # at the start of the line below to fix your errors</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># number * 2</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In R scripts (as we will learn) adding a <code>#</code> at the start of a line of code <em>comments out</em> that line: meaning you can write anything you want and the R interpreter will ignore it.</p>
+<p>The reason the tests were failing is that the body of the function is commented out - fix it by removing the <code>#</code> and saving the file.</p>
+<p>If you run <code>git status</code> at this point, you’d might see something like the following:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">On</span> branch main</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Your</span> branch is up to date with <span class="st">'origin/main'</span>.</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Changes</span> not staged for commit:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git add &lt;file&gt;..."</span> to update what will be committed<span class="kw">)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git restore &lt;file&gt;..."</span> to discard changes in working directory<span class="kw">)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">modified:</span>   exercises/exercises_000.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This tells us that one existing file – which Git was tracking – has been modified. However, we are still at the very left hand side of the diagram above. The next step is to <em>stage</em> these changes. To do that, you need <code>git add</code> .</p>
+<p>You can add individual files:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add exercises/exercises_000.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or you can add a fileglob (in this case: all files with a <code>.R</code> extension):</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="pp">**</span>/<span class="pp">*</span>.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or you can add everything in the directory:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add <span class="at">--all</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, <code>git status</code> will show something like this:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">On</span> branch main</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Your</span> branch is up to date with <span class="st">'origin/main'</span>.</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Changes</span> to be committed:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">(</span><span class="ex">use</span> <span class="st">"git restore --staged &lt;file&gt;..."</span> to unstage<span class="kw">)</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">modified:</span>   exercises/exercises_000.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This output says there are changes to be committed - this is the final stage in the <code>git</code> workflow.</p>
+</section>
+<section id="git-commit" class="level3">
+<h3 class="anchored" data-anchor-id="git-commit"><code>git commit</code></h3>
+</section>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
+<ul>
+<li><p><a href="https://git-scm.com/book/en/v2" title="A comprehensive guide to using Git">Pro Git book</a></p></li>
+<li><p><a href="https://learngitbranching.js.org/">Learn Git Branching (game)</a></p></li>
+</ul>
+
+
 </section>
 
 <div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p><a href="https://en.wikipedia.org/wiki/Git">Wikipedia link</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p><a href="https://en.wikipedia.org/wiki/Git" class="uri">https://en.wikipedia.org/wiki/Git</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F" class="uri">https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script type="application/javascript">

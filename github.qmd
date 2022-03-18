@@ -8,7 +8,7 @@ title: "Git and GitHub"
 
 Why write a definition when you can simply lift one from Wikipedia[^1]?
 
-[^1]: [Wikipedia link](https://en.wikipedia.org/wiki/Git)
+[^1]: <https://en.wikipedia.org/wiki/Git>
 
 > Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development. Its goals include speed, data integrity, and support for distributed, non-linear workflows (thousands of parallel branches running on different systems).
 
@@ -31,6 +31,10 @@ Alternatives (such as [GitLab](https://about.gitlab.com/){target="_blank"} and [
 ## Basic Git commands
 
 Git is an extremely powerful, and at times [dangerously confusing](https://ohshitgit.com/){target="_blank"} tool, but you can get surprisingly far with very few commands.
+
+::: callout-tip
+This is a far from comprehensive list of Git commands. See [Further Reading](#further-reading) for more thorough guides
+:::
 
 In order to learn about them, you first need a repository to work with. In order to do this, you're going to *fork* (basically create a copy) of one I created earlier:
 
@@ -72,3 +76,172 @@ cd r-intro-exercises
 ```
 
 You are now inside a directory which is a copy of the remote repository on your GitHub. You will be making changes to the files in these directories locally and pushing them back to your remote repository once you're happy with them.
+
+#### Opening the project in RStudio
+
+Next you'll want to open the project in RStudio.
+
+Fire up RStudio and click on the menu in the top right, then `Open Project…`
+
+![](images/paste-575F7103.png){fig-align="center" width="400"}
+
+Navigate to the directory where you cloned your repository above, and select the `.Rproj` file within it.
+
+If you have any issues opening this project, take a look at this help documentation from [RStudio](https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects).
+
+When you first open the project, you'll see some output in the R console like this:
+
+``` bash
+renv library out of date - automatically restoring...
+The following package(s) will be updated:
+
+# CRAN ===============================
+- R6           [* -> 2.5.1]
+- brio         [* -> 1.1.3]
+...
+...
+...
+- waldo        [* -> 0.4.0]
+- withr        [* -> 2.5.0]
+
+Do you want to proceed? [y/N]: 
+```
+
+Type `y` and hit <kbd>Enter</kbd>.
+
+Go back to your terminal / command prompt and run:
+
+``` bash
+Rscript test.R --example
+```
+
+This should output something like the following:
+
+``` bash
+══ Testing test-exercises_000.R ════════════════════════════════════════════════════════════
+[ FAIL 3 | WARN 0 | SKIP 0 | PASS 0 ]
+
+── Failure (test-exercises_000.R:4:3): dbl_fun works ───────────────────────────
+dbl_fun(2) not equal to 4.
+target is NULL, current is numeric
+
+── Failure (test-exercises_000.R:5:3): dbl_fun works ───────────────────────────
+dbl_fun(100) not equal to 200.
+target is NULL, current is numeric
+
+── Failure (test-exercises_000.R:6:3): dbl_fun works ───────────────────────────
+dbl_fun(402) not equal to 804.
+target is NULL, current is numeric
+
+[ FAIL 3 | WARN 0 | SKIP 0 | PASS 0 ]
+```
+
+Don't worry that these are all failing at the moment: we will be fixing these problems momentarily.
+
+### `git status`
+
+For a command which technically does nothing, `git status` is very important. It is incredibly easy to cause a lot of damage to your project by running certain commands whilst making assumptions (but not checking) what the current status of your repository is.
+
+::: callout-important
+As a rule of thumb, try to run `git status` before and after *any other Git operation*. It could save you a lot of heartache.
+:::
+
+You run it by running the following in your terminal / command prompt:
+
+``` bash
+git status
+```
+
+You should get output which looks something like this:
+
+    On branch main
+    Your branch is up to date with 'origin/main'.
+
+    nothing to commit, working tree clean
+
+This means that you haven't done anything locally beyond that which exists in the remote repository.
+
+Before we continue, it is worth understanding the workflow of Git, by looking at the following diagram, from the Git documentation[^2]
+
+[^2]: <https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F>
+
+![](https://git-scm.com/book/en/v2/images/areas.png){fig-align="center" width="600"}
+
+You start over on the left: in your working directory, with no changes to your existing files. Then, you make changes to your files, and you save them. At this point, you have done nothing different than you would when making incremental changes to (say) a Microsoft Word document.
+
+::: callout-caution
+Probably don't use Git to manage projects with Microsoft Word documents: they might look like it, but they are not just text files.
+:::
+
+### `git add`
+
+`git add` is the command you use to add modified files to the *Staging Area*. In order for it to do anything, you first need to modify a file.
+
+Open up `exercises/exercises_000.R` in RStudio in your cloned repository, and you should see the following:
+
+``` r
+#' make changes to the function below to make it double any number
+dbl_fun <- function(number) {
+  # REMOVE THE # at the start of the line below to fix your errors
+  # number * 2
+}
+```
+
+In R scripts (as we will learn) adding a `#` at the start of a line of code *comments out* that line: meaning you can write anything you want and the R interpreter will ignore it.
+
+The reason the tests were failing is that the body of the function is commented out - fix it by removing the `#` and saving the file.
+
+If you run `git status` at this point, you'd might see something like the following:
+
+``` bash
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   exercises/exercises_000.R
+```
+
+This tells us that one existing file -- which Git was tracking -- has been modified. However, we are still at the very left hand side of the diagram above. The next step is to *stage* these changes. To do that, you need `git add` .
+
+You can add individual files:
+
+``` bash
+git add exercises/exercises_000.R
+```
+
+or you can add a fileglob (in this case: all files with a `.R` extension):
+
+``` bash
+git add **/*.R
+```
+
+or you can add everything in the directory:
+
+``` bash
+git add --all
+# or
+git add .
+```
+
+Now, `git status` will show something like this:
+
+``` bash
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   exercises/exercises_000.R
+```
+
+This output says there are changes to be committed - this is the final stage in the `git` workflow.
+
+### `git commit`
+
+## Further Reading
+
+-   [Pro Git book](https://git-scm.com/book/en/v2 "A comprehensive guide to using Git")
+
+-   [Learn Git Branching (game)](https://learngitbranching.js.org/)

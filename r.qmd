@@ -3,3 +3,7 @@ title: R
 ---
 
 Something about R
+
+::: callout-tip
+Adding a \# to a line of R code *comments out* the rest of the line: meaning that the R interpreter ignores anything written after the \#
+:::
