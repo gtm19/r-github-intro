@@ -3,4 +3,6 @@ title: "Welcome"
 ---
 Welcome to the R / Git / GitHub introductory course.
 
+<iframe src="https://giphy.com/embed/l0MYC0LajbaPoEADu" width="480" height="277" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
+
 Please use the links on the left (or at the bottom of each page) to navigate.
