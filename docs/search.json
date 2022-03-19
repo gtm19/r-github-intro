@@ -61,5 +61,12 @@
     "title": "Git and GitHub",
     "section": "Further Reading",
     "text": "Further Reading\n\nPro Git book\nLearn Git Branching (game)"
+  },
+  {
+    "objectID": "r.html#introduction",
+    "href": "r.html#introduction",
+    "title": "R",
+    "section": "Introduction",
+    "text": "Introduction\n\nWhat is R?\n\nR is a programming language for statistical computing and graphics supported by the R Core Team and the R Foundation for Statistical Computing. Created by statisticians Ross Ihaka and Robert Gentleman, R is used among data miners and statisticians for data analysis and developing statistical software.\n\nSomething about R\n\n\n\n\n\n\nTip\n\n\n\nAdding a # to a line of R code comments out the rest of the line: meaning that the R interpreter ignores anything written after the #"
   }
 ]
