@@ -6,12 +6,75 @@ title: R
 
 ### What is R?
 
-> R is a programming language for statistical computing and graphics supported by the R Core Team and the R Foundation for Statistical
-> Computing. Created by statisticians Ross Ihaka and Robert Gentleman, R
-> is used among data miners and statisticians for data analysis and
-> developing statistical software.
+Starting with a good old definition from Wikipedia[^1]:
 
-Something about R
+[^1]: <https://en.wikipedia.org/wiki/R_(programming_language)>
+
+> R is a programming language for statistical computing and graphics supported by the R Core Team and the R Foundation for Statistical Computing. Created by statisticians Ross Ihaka and Robert Gentleman, R is used among data miners and statisticians for data analysis and developing statistical software.
+
+It may have originated as a language for statistical computing, and it still is used as such, but it is increasingly used as a more general purpose data analysis tool: for things like web scraping, data engineering, and journalism.
+
+It is also a functional programming language: which in layman's terms means that, in R, you define functions and things into them to produce some result.
+
+So, for example, to take a lower case string and make it upper case in R, you pass the string into the `toupper()` function:
+
+```{r}
+toupper("small")
+```
+
+This is different from object oriented languages like Ruby, where objects of a certain class have *methods* (basically functions) built into them. They carry them around, waiting for you to call the method on them.
+
+In Ruby, the same task of capitalising a string is done as follows (`puts` is just the command to print the output):
+
+```{ruby}
+puts "small".upcase
+```
+
+We won't dwell on the basics of R too long here: it's better to skip to doing useful stuff and fill in the basics later.
+
+## Basics of R
+
+### Data Types
+
+R has 6 main data types (though usually you'll only come across the first 4 of them):
+
+-   character (like `"hello, world!"`)
+-   numeric (aka *double*) (real or decimal, like `3` and `3.14`)
+-   integer (like `9L`: where the `L` tells R it is an integer specifically)
+-   logical (`TRUE` or `FALSE`)
+-   complex (like `4+9i`)
+-   raw (which most of the time you really don't need to worry about)
+
+R builds more complex data types from these basic building blocks: but underneath it all, every data object in R has to be one of the above.
+
+This is done by adding *classes* to data objects. Classes are beyond the scope of this workshop, but what you need to know is that classes tell R to treat some objects in a different way when you use generic functions on them.
+
+Take the following example:
+
+```{r}
+today <- Sys.Date()
+today
+
+```
+
+Of the 6 data types listed above, `today` looks most like a character string. You can use `typeof()` to see what it actually is, and `class` to see what class it has been given so that R knows to treat it differently.
+
+```{r}
+typeof(today)
+class(today)
+```
+
+You can see the actual data object in all its classless glory using the `unclass()` function:
+
+```{r}
+unclass(today)
+```
+
+You'll see that an object with class `Date` is just the number of days since 1 January 1970 (the Unix epoch[^2]).
+
+[^2]: <https://en.wikipedia.org/wiki/Unix_time>
+
+------------------------------------------------------------------------
 
 ::: callout-tip
 Adding a \# to a line of R code *comments out* the rest of the line: meaning that the R interpreter ignores anything written after the \#
