@@ -34,6 +34,59 @@ We won't dwell on the basics of R too long here: it's better to skip to doing us
 
 ## Basics of R
 
+### Assignment operator
+
+To create a variable in R, and assign a value to it, you use the assignment operator, `<-`, like so:
+
+``` r
+variable_one <- 10
+```
+
+You can also use `=` in most, but not all, cases -- so it's probably better to use `<-` generally.
+
+### Mathematical operators
+
+`+`, `-`, `/` (for division) and `*` (for multiplication) work as you might expect.
+
+`%/%` returns the quotient of a number when divided by another number. For example, since $13 = 4 \times 3 + 1$:
+
+```{r}
+13 %/% 3
+```
+
+`%%` returns the remainder:
+
+```{r}
+13 %% 3
+```
+
+### Relational operators
+
+Relational operators are used to compare two values, returning `TRUE` or `FALSE`.
+
+They are:
+
+```{r}
+a <- 1
+b <- 10
+
+# LESS THAN
+a < b
+# LESS THAN OR EQUAL TO
+a <= b
+
+# GREATER THAN
+a > b
+# GREATER THAN OR EQUAL TO
+a >= b
+
+# EQUAL TO
+a == b
+
+# NOT EQUAL TO
+a != b
+```
+
 ### Data Types
 
 R has 6 main data types (though usually you'll only come across the first 4 of them):
@@ -73,6 +126,275 @@ unclass(today)
 You'll see that an object with class `Date` is just the number of days since 1 January 1970 (the Unix epoch[^2]).
 
 [^2]: <https://en.wikipedia.org/wiki/Unix_time>
+
+### Vectors and Lists
+
+#### Vectors
+
+A vector is a data structure which contains a number of data elements of the same basic type.
+
+As a rule, vectors are created using the `c()` function (short for combine):
+
+```{r}
+vec_1 <- c(1, 2, 3, 4)
+length(vec_1)
+class(vec_1)
+typeof(vec_1)
+is.vector(vec_1)
+```
+
+::: callout-note
+Vectors can only contain data of the same type: if you try to mix types in a vector, all of its elements will be coerced as follows:
+
+-   logical
+-   integer
+-   double
+-   character
+
+Where R will use the type where fewest elements are coerced to `NA` values
+:::
+
+```{r}
+vec_2 <- c(TRUE, "FALSE")
+vec_2
+typeof(vec_2)
+```
+
+You can use the `c()` function to combine (and flatten) vectors together into a single vector too:
+
+```{r}
+vec_3 <- c(
+  1,
+  c(2, 3),
+  c(4, 5, c(6, 7, 8))
+)
+
+vec_3
+```
+
+This is also a good way to add an element to the end of a vector:
+
+```{r}
+vec_3 <- c(vec_3, 1000)
+vec_3
+```
+
+Sequences of integers can be created using the `:` function:
+
+```{r}
+1:20
+```
+
+You can also create vectors with named elements:
+
+```{r}
+vec_4 <- c(
+  yes = 1,
+  no = 2
+)
+
+vec_4
+```
+
+#### Lists
+
+Lists are like vectors, except every element does not have to be of the same type. They can even be lists, which means lists can be nested.
+
+You create them using the `list()` function:
+
+```{r}
+list_1 <- list(
+  1, 2, "3", list(4, 5, 6, c(7, 8, 9))
+)
+
+list_1
+
+class(list_1)
+typeof(list_1)
+```
+
+As with vectors, you can name the elements in a list:
+
+```{r}
+list_2 <- list(
+  yes = 1,
+  no = 2,
+  maybe = 3
+)
+
+list_2
+```
+
+### Subsetting
+
+Unlike many other programming languages, R uses 1-based index arrays/vectors: meaning you can extract elements like so:
+
+```{r}
+some_letters <- c("A", "B", "C", "D")
+
+# First letter:
+some_letters[1]
+
+# Third letter:
+some_letters[3]
+```
+
+With named vectors, you can extract individual elements using the name, like so:
+
+```{r}
+vec_4["yes"]
+```
+
+You can do the same with lists:
+
+```{r}
+list_2["yes"]
+```
+
+::: callout-important
+Subsetting a list in this way actually returns another list. To get the element itself, either double up the square brackets:
+
+```{r}
+list_2[["yes"]]
+```
+
+or use the `$` function:
+
+```{r}
+list_2$yes
+```
+
+The key difference between single `[` and double `[[` / `$` is that the former can be used to select multiple elements:
+
+```{r}
+list_2[c(1, 2)]
+list_2[c("yes", "maybe")]
+
+```
+:::
+
+### Control flow
+
+#### `if` / `else`
+
+`if` and `else` statements are used to run blocks of code only when certain conditions are met:
+
+```{r}
+n <- 4
+
+if (n %% 2 == 0) {
+  message(n, " is an even number")
+}
+```
+
+You can add in `else if` calls to the flow: the execution will exit on the first satisfied condition:
+
+```{r}
+n <- 3
+if (n == 2) {
+  message("n is 2")
+} else if (n == 3) {
+  message("n is 3")
+} else if (n*2 == 6) {
+  # the following will not execute since the sequence exited 
+  # above
+  message("n times 2 is 6")
+}
+```
+
+`else` can be used to run an expression if no previous `if` or `if else` conditions were satisfied:
+
+```{r}
+if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else {
+  message("hello")
+}
+```
+
+#### `for` loops
+
+`for` loops iterate over a sequence, executing the code within the block once for each item in the sequence, like so:
+
+```{r}
+for (thing in c("John", "Paul", "George", "Ringo")) {
+  message(thing, " is a member of The Beatles")
+}
+```
+
+Sometimes, the index of the item is also needed, along with the item itself. This is achieved as follows:
+
+```{r}
+beatles <- c("John", "Paul", "George", "Ringo")
+for (i in seq_along(beatles)) {
+  message(i, ". ", beatles[i], " is a member of The Beatles")
+}
+```
+
+These loops terminate automatically once they reach the end of the sequence: since a vector cannot have an infinite length, then you don't need to worry about an infinite loop.
+
+#### `while` loops
+
+`while` loops continue to execute as long as the given condition is true:
+
+```{r}
+i <- 0
+while (i <= 3) {
+  message("The value of i is ", i)
+  i <- i + 1
+}
+```
+
+Since this loop will continue as long as the value of `i` is less than or equal to `3`, it is imperative that the body of the loop increments `i`. If it doesn't, the loop will run infinitely.
+
+#### `repeat` loops
+
+`repeat` loops are very similar to `while` loops, except there is no preceding condition which is tested on the way in to decide whether to execute the expression within the block: you need to use `break` to manually exit the loop.
+
+```{r}
+i <- 0
+repeat {
+  message("The value of i is ", i)
+  i <- i + 1
+  if (i > 3) break
+}
+```
+
+You can also use `next` to skip execution in certain conditions - for example for odd numbered indices:
+
+```{r}
+i <- 0
+repeat {
+  i <- i + 1
+  if (i %% 2 == 1) next
+  if (i > 10) break
+  message("The value of i is ", i)
+}
+```
+
+### Functional Programming (`apply` functions)
+
+### Creating Functions
+
+### Useful Data Sciencey tasks
+
+#### Reading / writing csvs
+
+#### Querying APIs
+
+#### Web scraping
+
+### Packages
+
+### Testing
 
 ------------------------------------------------------------------------
 
