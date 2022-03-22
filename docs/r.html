@@ -186,13 +186,14 @@
 <li><a href="#relational-operators" class="nav-link" data-scroll-target="#relational-operators">Relational operators</a></li>
 <li><a href="#data-types" class="nav-link" data-scroll-target="#data-types">Data Types</a></li>
 <li><a href="#vectors-and-lists" class="nav-link" data-scroll-target="#vectors-and-lists">Vectors and Lists</a></li>
+<li><a href="#data-frames" class="nav-link" data-scroll-target="#data-frames">Data Frames</a></li>
 <li><a href="#subsetting" class="nav-link" data-scroll-target="#subsetting">Subsetting</a></li>
 <li><a href="#control-flow" class="nav-link" data-scroll-target="#control-flow">Control flow</a></li>
 <li><a href="#creating-functions" class="nav-link" data-scroll-target="#creating-functions">Creating Functions</a></li>
 <li><a href="#functional-programming-apply-functions" class="nav-link" data-scroll-target="#functional-programming-apply-functions">Functional Programming (<code>apply</code> functions)</a></li>
 <li><a href="#useful-data-sciencey-tasks" class="nav-link" data-scroll-target="#useful-data-sciencey-tasks">Useful Data Sciencey tasks</a></li>
 <li><a href="#package-development" class="nav-link" data-scroll-target="#package-development">Package Development</a></li>
-<li><a href="#testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+<li><a href="#getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -525,26 +526,257 @@ $maybe
 </div>
 </section>
 </section>
+<section id="data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="data-frames">Data Frames</h3>
+<p>Data frames are a fairly central concept when using R for analysis / data science. They are a 2 dimensional array, kind of like a table in Excel.</p>
+<p>There is a built in example data frame in R, called <code>mtcars</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb63"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(mtcars)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">mpg</th>
+<th style="text-align: right;">cyl</th>
+<th style="text-align: right;">disp</th>
+<th style="text-align: right;">hp</th>
+<th style="text-align: right;">drat</th>
+<th style="text-align: right;">wt</th>
+<th style="text-align: right;">qsec</th>
+<th style="text-align: right;">vs</th>
+<th style="text-align: right;">am</th>
+<th style="text-align: right;">gear</th>
+<th style="text-align: right;">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mazda RX4</td>
+<td style="text-align: right;">21.0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">3.90</td>
+<td style="text-align: right;">2.620</td>
+<td style="text-align: right;">16.46</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mazda RX4 Wag</td>
+<td style="text-align: right;">21.0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">3.90</td>
+<td style="text-align: right;">2.875</td>
+<td style="text-align: right;">17.02</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Datsun 710</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">3.85</td>
+<td style="text-align: right;">2.320</td>
+<td style="text-align: right;">18.61</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hornet 4 Drive</td>
+<td style="text-align: right;">21.4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">258</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">3.08</td>
+<td style="text-align: right;">3.215</td>
+<td style="text-align: right;">19.44</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hornet Sportabout</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">360</td>
+<td style="text-align: right;">175</td>
+<td style="text-align: right;">3.15</td>
+<td style="text-align: right;">3.440</td>
+<td style="text-align: right;">17.02</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Valiant</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">105</td>
+<td style="text-align: right;">2.76</td>
+<td style="text-align: right;">3.460</td>
+<td style="text-align: right;">20.22</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>As you can see, a data frame is actually a list of vectors:</p>
+<div class="cell">
+<div class="sourceCode" id="cb66"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(<span class="fu">head</span>(mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>$mpg
+[1] 21.0 21.0 22.8 21.4 18.7 18.1
+
+$cyl
+[1] 6 6 4 6 8 6
+
+$disp
+[1] 160 160 108 258 360 225
+
+$hp
+[1] 110 110  93 110 175 105
+
+$drat
+[1] 3.90 3.90 3.85 3.08 3.15 2.76
+
+$wt
+[1] 2.620 2.875 2.320 3.215 3.440 3.460
+
+$qsec
+[1] 16.46 17.02 18.61 19.44 17.02 20.22
+
+$vs
+[1] 0 0 1 1 0 1
+
+$am
+[1] 1 1 1 0 0 0
+
+$gear
+[1] 4 4 4 3 3 3
+
+$carb
+[1] 4 4 1 1 2 1
+
+attr(,"row.names")
+[1] "Mazda RX4"         "Mazda RX4 Wag"     "Datsun 710"       
+[4] "Hornet 4 Drive"    "Hornet Sportabout" "Valiant"          </code></pre>
+</div>
+</div>
+<p>You can create your own data frame using the <code>data.frame</code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb70"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>snooker <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">colour =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"yellow"</span>, <span class="st">"green"</span>, <span class="st">"brown"</span>, <span class="st">"blue"</span>, <span class="st">"pink"</span>, <span class="st">"black"</span>),</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  snooker</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">colour</th>
+<th style="text-align: right;">score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">red</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yellow</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">green</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">brown</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">blue</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pink</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">black</td>
+<td style="text-align: right;">7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 <section id="subsetting" class="level3">
 <h3 class="anchored" data-anchor-id="subsetting">Subsetting</h3>
 <p>Unlike many other programming languages, R uses 1-based index arrays/vectors: meaning you can extract elements like so:</p>
 <div class="cell">
-<div class="sourceCode" id="cb63"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>some_letters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First letter:</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>some_letters[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>some_letters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co"># First letter:</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>some_letters[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] "A"</code></pre>
 </div>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Third letter:</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>some_letters[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Third letter:</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>some_letters[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] "C"</code></pre>
 </div>
 </div>
 <p>With named vectors, you can extract individual elements using the name, like so:</p>
 <div class="cell">
-<div class="sourceCode" id="cb67"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>vec_4[<span class="st">"yes"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>vec_4[<span class="st">"yes"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>yes 
   1 </code></pre>
@@ -552,7 +784,7 @@ $maybe
 </div>
 <p>You can do the same with lists:</p>
 <div class="cell">
-<div class="sourceCode" id="cb69"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>list_2[<span class="st">"yes"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>list_2[<span class="st">"yes"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>$yes
 [1] 1</code></pre>
@@ -570,21 +802,21 @@ Important
 <div class="callout-body-container callout-body">
 <p>Subsetting a list in this way actually returns another list. To get the element itself, either double up the square brackets:</p>
 <div class="cell">
-<div class="sourceCode" id="cb71"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>list_2[[<span class="st">"yes"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>list_2[[<span class="st">"yes"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 <p>or use the <code>$</code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb73"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>list_2<span class="sc">$</span>yes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>list_2<span class="sc">$</span>yes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
 <p>The key difference between single <code>[</code> and double <code>[[</code> / <code>$</code> is that the former can be used to select multiple elements:</p>
 <div class="cell">
-<div class="sourceCode" id="cb75"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>list_2[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>list_2[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>$yes
 [1] 1
@@ -592,7 +824,7 @@ Important
 $no
 [1] 2</code></pre>
 </div>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>list_2[<span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"maybe"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>list_2[<span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"maybe"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>$yes
 [1] 1
@@ -603,6 +835,46 @@ $maybe
 </div>
 </div>
 </div>
+<p>You can replace values in a vector / list by assigning values when subsetted.</p>
+<p>For example, to change the first element of <code>some_letters</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb87"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>some_letters[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Z"</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>some_letters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Z" "B" "C" "D"</code></pre>
+</div>
+</div>
+<section id="subsetting-data-frames" class="level4">
+<h4 class="anchored" data-anchor-id="subsetting-data-frames">Subsetting data frames</h4>
+<p>When subsetting data frames, it is important to remember that they are effectively just a list of vectors, so you can subset a column by name:</p>
+<div class="cell">
+<div class="sourceCode" id="cb89"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>cyl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4</code></pre>
+</div>
+</div>
+<p>or by column number:</p>
+<div class="cell">
+<div class="sourceCode" id="cb91"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>mtcars[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4</code></pre>
+</div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>mtcars[,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code> [1] 6 6 4 6 8 6 8 4 4 6 6 8 8 8 8 8 8 4 4 4 4 8 8 8 8 4 4 4 8 6 8 4</code></pre>
+</div>
+</div>
+<p>and you can select rows like so:</p>
+<div class="cell">
+<div class="sourceCode" id="cb95"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for the first row:</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>          mpg cyl disp  hp drat   wt  qsec vs am gear carb
+Mazda RX4  21   6  160 110  3.9 2.62 16.46  0  1    4    4</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="control-flow" class="level3">
 <h3 class="anchored" data-anchor-id="control-flow">Control flow</h3>
@@ -610,46 +882,46 @@ $maybe
 <h4 class="anchored" data-anchor-id="if-else"><code>if</code> / <code>else</code></h4>
 <p><code>if</code> and <code>else</code> statements are used to run blocks of code only when certain conditions are met:</p>
 <div class="cell">
-<div class="sourceCode" id="cb79"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(n, <span class="st">" is an even number"</span>)</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(n, <span class="st">" is an even number"</span>)</span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>4 is an even number</code></pre>
 </div>
 </div>
 <p>You can add in <code>else if</code> calls to the flow: the execution will exit on the first satisfied condition:</p>
 <div class="cell">
-<div class="sourceCode" id="cb81"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">2</span>) {</span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"n is 2"</span>)</span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">3</span>) {</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"n is 3"</span>)</span>
-<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (n<span class="sc">*</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">6</span>) {</span>
-<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the following will not execute since the sequence exited </span></span>
-<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># above</span></span>
-<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"n times 2 is 6"</span>)</span>
-<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">2</span>) {</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"n is 2"</span>)</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (n <span class="sc">==</span> <span class="dv">3</span>) {</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"n is 3"</span>)</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (n<span class="sc">*</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">6</span>) {</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the following will not execute since the sequence exited </span></span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># above</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"n times 2 is 6"</span>)</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>n is 3</code></pre>
 </div>
 </div>
 <p><code>else</code> can be used to run an expression if no previous <code>if</code> or <code>if else</code> conditions were satisfied:</p>
 <div class="cell">
-<div class="sourceCode" id="cb83"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
-<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
-<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"hello"</span>)</span>
-<span id="cb83-13"><a href="#cb83-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
+<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
+<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>()</span>
+<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"hello"</span>)</span>
+<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>hello</code></pre>
 </div>
@@ -659,9 +931,9 @@ $maybe
 <h4 class="anchored" data-anchor-id="for-loops"><code>for</code> loops</h4>
 <p><code>for</code> loops iterate over a sequence, executing the code within the block once for each item in the sequence, like so:</p>
 <div class="cell">
-<div class="sourceCode" id="cb85"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (thing <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Paul"</span>, <span class="st">"George"</span>, <span class="st">"Ringo"</span>)) {</span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(thing, <span class="st">" is a member of The Beatles"</span>)</span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (thing <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Paul"</span>, <span class="st">"George"</span>, <span class="st">"Ringo"</span>)) {</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(thing, <span class="st">" is a member of The Beatles"</span>)</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>John is a member of The Beatles</code></pre>
 </div>
@@ -677,10 +949,10 @@ $maybe
 </div>
 <p>Sometimes, the index of the item is also needed, along with the item itself. This is achieved as follows:</p>
 <div class="cell">
-<div class="sourceCode" id="cb90"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>beatles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Paul"</span>, <span class="st">"George"</span>, <span class="st">"Ringo"</span>)</span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(beatles)) {</span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(i, <span class="st">". "</span>, beatles[i], <span class="st">" is a member of The Beatles"</span>)</span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>beatles <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"John"</span>, <span class="st">"Paul"</span>, <span class="st">"George"</span>, <span class="st">"Ringo"</span>)</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(beatles)) {</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(i, <span class="st">". "</span>, beatles[i], <span class="st">" is a member of The Beatles"</span>)</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>1. John is a member of The Beatles</code></pre>
 </div>
@@ -700,11 +972,11 @@ $maybe
 <h4 class="anchored" data-anchor-id="while-loops"><code>while</code> loops</h4>
 <p><code>while</code> loops continue to execute as long as the given condition is true:</p>
 <div class="cell">
-<div class="sourceCode" id="cb95"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="dv">3</span>) {</span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"The value of i is "</span>, i)</span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;=</span> <span class="dv">3</span>) {</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"The value of i is "</span>, i)</span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>The value of i is 0</code></pre>
 </div>
@@ -724,12 +996,12 @@ $maybe
 <h4 class="anchored" data-anchor-id="repeat-loops"><code>repeat</code> loops</h4>
 <p><code>repeat</code> loops are very similar to <code>while</code> loops, except there is no preceding condition which is tested on the way in to decide whether to execute the expression within the block: you need to use <code>break</code> to manually exit the loop.</p>
 <div class="cell">
-<div class="sourceCode" id="cb100"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"The value of i is "</span>, i)</span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="cf">break</span></span>
-<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"The value of i is "</span>, i)</span>
+<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="cf">break</span></span>
+<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>The value of i is 0</code></pre>
 </div>
@@ -745,13 +1017,13 @@ $maybe
 </div>
 <p>You can also use <code>next</code> to skip execution in certain conditions - for example for odd numbered indices:</p>
 <div class="cell">
-<div class="sourceCode" id="cb105"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) <span class="cf">next</span></span>
-<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="cf">break</span></span>
-<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"The value of i is "</span>, i)</span>
-<span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) <span class="cf">next</span></span>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="cf">break</span></span>
+<span id="cb123-6"><a href="#cb123-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"The value of i is "</span>, i)</span>
+<span id="cb123-7"><a href="#cb123-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>The value of i is 2</code></pre>
 </div>
@@ -775,13 +1047,13 @@ $maybe
 <p>As a rule, code which is repeated numerous times in your scripts, or which you run regularly with different inputs, or which you want a way to test easily, should be extracted into a function.</p>
 <p>Functions are (generally) defined in R using <code>function</code> :</p>
 <div class="cell">
-<div class="sourceCode" id="cb111"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>new_func <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"hello"</span>)</span>
-<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>new_func <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"hello"</span>)</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You then <em>call</em> a function by executing it with <code>()</code> at the end:</p>
 <div class="cell">
-<div class="sourceCode" id="cb112"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">new_func</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">new_func</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>hello</code></pre>
 </div>
@@ -794,15 +1066,15 @@ $maybe
 </ul>
 <p>The formals are what go inside the brackets when defining the function. Variables which may be different each time the function is called would be fed in via these arguments. For example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb114"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>doubler <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="fu">doubler</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>doubler <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a><span class="fu">doubler</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 20</code></pre>
 </div>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">doubler</span>(<span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">doubler</span>(<span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 80</code></pre>
 </div>
@@ -810,12 +1082,12 @@ $maybe
 <p>The body is just the code which will be executed: this sits between the curly brackets.</p>
 <p>It’s a very good idea to add argument validation towards the top of your function’s body as well:</p>
 <div class="cell">
-<div class="sourceCode" id="cb118"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>doubler <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.character</span>(n)) <span class="fu">stop</span>(<span class="st">"n must be a number"</span>)</span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a><span class="fu">doubler</span>(<span class="st">"ten"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>doubler <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.character</span>(n)) <span class="fu">stop</span>(<span class="st">"n must be a number"</span>)</span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>  n <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="fu">doubler</span>(<span class="st">"ten"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-error">
 <pre><code>Error in doubler("ten"): n must be a number</code></pre>
 </div>
@@ -823,29 +1095,29 @@ $maybe
 <p>To understand more about <em>environments</em>, recommended reading is the section about <a href="https://adv-r.hadley.nz/functions.html#lexical-scoping"><em>lexical scoping</em> in Advanced R</a>. At this point, it’s useful to mention that a function will try to use the “most locally” defined variable with the same name, looking first at its own environment, and if it does not find it, in the environment in which it was called.</p>
 <p>Also, the calltime environments of functions are transient: variables which are created on execution will not generally continue to exist once the function exits.</p>
 <div class="cell">
-<div class="sourceCode" id="cb120"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>random_function <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y <span class="sc">+</span> z</span>
-<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="fu">random_function</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb138-2"><a href="#cb138-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb138-3"><a href="#cb138-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-4"><a href="#cb138-4" aria-hidden="true" tabindex="-1"></a>random_function <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb138-5"><a href="#cb138-5" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb138-6"><a href="#cb138-6" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb138-7"><a href="#cb138-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb138-8"><a href="#cb138-8" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> y <span class="sc">+</span> z</span>
+<span id="cb138-9"><a href="#cb138-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb138-10"><a href="#cb138-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-11"><a href="#cb138-11" aria-hidden="true" tabindex="-1"></a><span class="fu">random_function</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 150</code></pre>
 </div>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 20</code></pre>
 </div>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'z' not found</code></pre>
 </div>
@@ -856,30 +1128,30 @@ $maybe
 <p>A <strong>functional</strong> is any function that takes a function as an input and returns a vector as output.</p>
 <p>Here is a simple example:</p>
 <div class="cell">
-<div class="sourceCode" id="cb128"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a>some_functional <span class="ot">&lt;-</span> <span class="cf">function</span>(f) {</span>
-<span id="cb128-4"><a href="#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">f</span>(numbers)</span>
-<span id="cb128-5"><a href="#cb128-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb128-6"><a href="#cb128-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-7"><a href="#cb128-7" aria-hidden="true" tabindex="-1"></a><span class="fu">some_functional</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>some_functional <span class="ot">&lt;-</span> <span class="cf">function</span>(f) {</span>
+<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">f</span>(numbers)</span>
+<span id="cb146-5"><a href="#cb146-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb146-6"><a href="#cb146-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-7"><a href="#cb146-7" aria-hidden="true" tabindex="-1"></a><span class="fu">some_functional</span>(mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 3.5</code></pre>
 </div>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">some_functional</span>(range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">some_functional</span>(range)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 1 6</code></pre>
 </div>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">some_functional</span>(sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">some_functional</span>(sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 21</code></pre>
 </div>
 </div>
 <p>They are most often used to perform the same action on every element of a list or vector. Base R has the <code>lapply</code> family of functions to do this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb134"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>some_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"bob"</span>, <span class="st">"jane"</span>, <span class="st">"eric"</span>)</span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(some_names, toupper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>some_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"bob"</span>, <span class="st">"jane"</span>, <span class="st">"eric"</span>)</span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(some_names, toupper)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[[1]]
 [1] "BOB"
@@ -894,13 +1166,13 @@ $maybe
 <p>The first argument is the vector on which you want to iterate over and apply the second argument (a function) to. As you can see, <code>lapply</code> returns a list by default.</p>
 <p>Sometimes, the functions you supply to <code>lapply</code> have additional arguments which you’d like to specify. You can provide additional, named, arguments in the call to <code>lapply</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb136"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>some_numbers <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="cn">NA</span>),</span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">200</span>),</span>
-<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">100</span>, <span class="dv">542</span>)</span>
-<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(some_numbers, sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>some_numbers <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="cn">NA</span>),</span>
+<span id="cb154-3"><a href="#cb154-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">200</span>),</span>
+<span id="cb154-4"><a href="#cb154-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">100</span>, <span class="dv">542</span>)</span>
+<span id="cb154-5"><a href="#cb154-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb154-6"><a href="#cb154-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-7"><a href="#cb154-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(some_numbers, sum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[[1]]
 [1] NA
@@ -911,7 +1183,7 @@ $maybe
 [[3]]
 [1] NA</code></pre>
 </div>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(some_numbers, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(some_numbers, sum, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[[1]]
 [1] 5
@@ -930,34 +1202,260 @@ $maybe
 <section id="reading-writing-csv-files" class="level4">
 <h4 class="anchored" data-anchor-id="reading-writing-csv-files">Reading / writing <code>csv</code> files</h4>
 </section>
+<section id="read.csv" class="level4">
+<h4 class="anchored" data-anchor-id="read.csv"><code>read.csv</code></h4>
+<div class="cell">
+<div class="sourceCode" id="cb158"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"</span></span>
+<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(countries)</span>
+<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">name</th>
+<th style="text-align: left;">alpha.2</th>
+<th style="text-align: left;">alpha.3</th>
+<th style="text-align: right;">country.code</th>
+<th style="text-align: left;">iso_3166.2</th>
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">sub.region</th>
+<th style="text-align: left;">intermediate.region</th>
+<th style="text-align: right;">region.code</th>
+<th style="text-align: right;">sub.region.code</th>
+<th style="text-align: right;">intermediate.region.code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: left;">AF</td>
+<td style="text-align: left;">AFG</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">ISO 3166-2:AF</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Southern Asia</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">142</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Åland Islands</td>
+<td style="text-align: left;">AX</td>
+<td style="text-align: left;">ALA</td>
+<td style="text-align: right;">248</td>
+<td style="text-align: left;">ISO 3166-2:AX</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Northern Europe</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">154</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Albania</td>
+<td style="text-align: left;">AL</td>
+<td style="text-align: left;">ALB</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">ISO 3166-2:AL</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Southern Europe</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Algeria</td>
+<td style="text-align: left;">DZ</td>
+<td style="text-align: left;">DZA</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">ISO 3166-2:DZ</td>
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Northern Africa</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">American Samoa</td>
+<td style="text-align: left;">AS</td>
+<td style="text-align: left;">ASM</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;">ISO 3166-2:AS</td>
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Polynesia</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Andorra</td>
+<td style="text-align: left;">AD</td>
+<td style="text-align: left;">AND</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">ISO 3166-2:AD</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Southern Europe</td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;">150</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><code>write.csv</code></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(countries, <span class="st">"path/to/file.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="querying-apis" class="level4">
 <h4 class="anchored" data-anchor-id="querying-apis">Querying APIs</h4>
-</section>
-<section id="web-scraping" class="level4">
-<h4 class="anchored" data-anchor-id="web-scraping">Web scraping</h4>
-</section>
-</section>
-<section id="package-development" class="level3">
-<h3 class="anchored" data-anchor-id="package-development">Package Development</h3>
-<p>It is a good idea to bundle useful, reusable code (especially that which you plan to share with others, and subject to testing) as a package.</p>
-<p>Creating R packages is a big topic — too big to cover in a single session — but you can read more about it in Hadley Wickham and Jenny Bryan’s book <a href="https://r-pkgs.org/index.html">R Packages</a>.</p>
-</section>
-<section id="testing" class="level3">
-<h3 class="anchored" data-anchor-id="testing">Testing</h3>
-<hr>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<p>At the moment, I would recommend using the <a href="https://httr.r-lib.org/"><code>httr</code> package</a> for HTTP requests.</p>
+<div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Tip
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Adding a # to a line of R code <em>comments out</em> the rest of the line: meaning that the R interpreter ignores anything written after the #</p>
+<p>The <a href="https://httr2.r-lib.org/"><code>httr2</code> package</a> is currently in development and will likely replace <code>httr</code>. This package has a very different API to <code>httr</code> , so don’t get too attached to this example.</p>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode" id="cb160"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://httpbin.org/anything?filter=everything&amp;goal=show%20how%20to%20api%20request"</span></span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">GET</span>(url)</span>
+<span id="cb160-4"><a href="#cb160-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-5"><a href="#cb160-5" aria-hidden="true" tabindex="-1"></a>content <span class="ot">&lt;-</span> httr<span class="sc">::</span><span class="fu">content</span>(req)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb161"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>content</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>$args
+$args$filter
+[1] "everything"
+
+$args$goal
+[1] "show how to api request"
+
+
+$data
+[1] ""
+
+$files
+named list()
+
+$form
+named list()
+
+$headers
+$headers$Accept
+[1] "application/json, text/xml, application/xml, */*"
+
+$headers$`Accept-Encoding`
+[1] "deflate, gzip"
+
+$headers$Host
+[1] "httpbin.org"
+
+$headers$`User-Agent`
+[1] "libcurl/7.77.0 r-curl/4.3.2 httr/1.4.2"
+
+$headers$`X-Amzn-Trace-Id`
+[1] "Root=1-623a3c06-7c58beaf6177c5ad68321cec"
+
+
+$json
+NULL
+
+$method
+[1] "GET"
+
+$url
+[1] "https://httpbin.org/anything?filter=everything&amp;goal=show how to api request"</code></pre>
+</div>
+</div>
+</section>
+<section id="web-scraping" class="level4">
+<h4 class="anchored" data-anchor-id="web-scraping">Web scraping</h4>
+<p>The <a href="https://rvest.tidyverse.org/"><code>rvest</code> package</a> is commonly used for web scraping:</p>
+<div class="cell">
+<div class="sourceCode" id="cb163"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://www.scrapethissite.com/pages/simple/"</span></span>
+<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> rvest<span class="sc">::</span><span class="fu">read_html</span>(<span class="at">x =</span> url)</span>
+<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a>elements <span class="ot">&lt;-</span> rvest<span class="sc">::</span><span class="fu">html_elements</span>(<span class="at">x =</span> page, <span class="at">css =</span> <span class="st">"h3.country-name"</span>)</span>
+<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-7"><a href="#cb163-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(</span>
+<span id="cb163-8"><a href="#cb163-8" aria-hidden="true" tabindex="-1"></a>  rvest<span class="sc">::</span><span class="fu">html_text2</span>(elements)</span>
+<span id="cb163-9"><a href="#cb163-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>[1] "Andorra"              "United Arab Emirates" "Afghanistan"         
+[4] "Antigua and Barbuda"  "Anguilla"             "Albania"             </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="package-development" class="level3">
+<h3 class="anchored" data-anchor-id="package-development">Package Development</h3>
+<p>It is a good idea to bundle useful, reusable code (especially that which you plan to share with others, and subject to testing) as a package.</p>
+<p>Creating R packages is a big topic — too big to cover in a single session — but you can read more about it in Hadley Wickham and Jenny Bryan’s book <a href="https://r-pkgs.org/index.html">R Packages</a>. It leans heavily on the <a href="https://usethis.r-lib.org/"><code>usethis</code> package</a>, a set of utilities created to simplify the setup of projects / packages.</p>
+<section id="testing" class="level4">
+<h4 class="anchored" data-anchor-id="testing">Testing</h4>
+<p>Unit testing is crucial when creating reliable packages. A little time up front writing out expectations as to what a function will return in a number of different circumstances saves you having to manually check that it does before you share your project. It also means that you can automate your tests: ensuring that it is impossible to publish work which does not demonstrably do what it set out to do.</p>
+<p>The <a href="https://testthat.r-lib.org/"><code>testthat</code> package</a>. The R Packages book <a href="https://r-pkgs.org/tests.html#test-workflow">has a section</a> on how to get up and running with tests on R packages.</p>
+</section>
+</section>
+<section id="getting-help" class="level3">
+<h3 class="anchored" data-anchor-id="getting-help">Getting help</h3>
+<p>To read the documentation for a function, type <code>?name_of_function</code> into the R console and hit enter.</p>
+<p>For example, to get the help documentation for <code>read.table</code>, you would type:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>?read.table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>read.table                package:utils                R Documentation
+
+Data Input
+
+Description:
+
+     Reads a file in table format and creates a data frame from it,
+     with cases corresponding to lines and variables to fields in the
+     file.
+
+Usage:
+
+     read.table(file, header = FALSE, sep = "", quote = "\"'",
+                dec = ".", numerals = c("allow.loss", "warn.loss", "no.loss"),
+                row.names, col.names, as.is = !stringsAsFactors,
+                na.strings = "NA", colClasses = NA, nrows = -1,
+                skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+                strip.white = FALSE, blank.lines.skip = TRUE,
+                comment.char = "#",
+                allowEscapes = FALSE, flush = FALSE,
+                stringsAsFactors = FALSE,
+                fileEncoding = "", encoding = "unknown", text, skipNul = FALSE)</code></pre>
 
 
 </section>

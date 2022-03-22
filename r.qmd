@@ -249,6 +249,41 @@ list_2 <- list(
 list_2
 ```
 
+### Data Frames
+
+Data frames are a fairly central concept when using R for analysis / data science. They are a 2 dimensional array, kind of like a table in Excel.
+
+There is a built in example data frame in R, called `mtcars`:
+
+```{r}
+class(mtcars)
+
+knitr::kable(
+  head(mtcars)
+)
+```
+
+As you can see, a data frame is actually a list of vectors:
+
+```{r}
+typeof(mtcars)
+
+unclass(head(mtcars))
+```
+
+You can create your own data frame using the `data.frame` function:
+
+```{r}
+snooker <- data.frame(
+  colour = c("red", "yellow", "green", "brown", "blue", "pink", "black"),
+  score = 1:7
+)
+
+knitr::kable(
+  snooker
+)
+```
+
 ### Subsetting
 
 Unlike many other programming languages, R uses 1-based index arrays/vectors: meaning you can extract elements like so:
@@ -296,6 +331,38 @@ list_2[c("yes", "maybe")]
 
 ```
 :::
+
+You can replace values in a vector / list by assigning values when subsetted.
+
+For example, to change the first element of `some_letters`:
+
+```{r}
+some_letters[1] <- "Z"
+some_letters
+```
+
+#### Subsetting data frames
+
+When subsetting data frames, it is important to remember that they are effectively just a list of vectors, so you can subset a column by name:
+
+```{r}
+mtcars$cyl
+```
+
+or by column number:
+
+```{r}
+mtcars[[2]]
+# or
+mtcars[,2]
+```
+
+and you can select rows like so:
+
+```{r}
+# for the first row:
+mtcars[1,]
+```
 
 ### Control flow
 
@@ -526,20 +593,108 @@ Having covered a few of the basics of R, it is worthwhile running through some p
 
 #### Reading / writing `csv` files
 
+#### `read.csv`
+
+```{r}
+countries <- read.csv(
+  "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"
+)
+
+knitr::kable(
+  head(countries)
+)
+```
+
+`write.csv`
+
+``` r
+write.csv(countries, "path/to/file.csv")
+```
+
 #### Querying APIs
 
+At the moment, I would recommend using the [`httr` package](https://httr.r-lib.org/) for HTTP requests.
+
+::: callout-important
+The [`httr2` package](https://httr2.r-lib.org/) is currently in development and will likely replace `httr`. This package has a very different API to `httr` , so don't get too attached to this example.
+:::
+
+```{r, simple_get_request}
+url <- "https://httpbin.org/anything?filter=everything&goal=show%20how%20to%20api%20request"
+
+req <- httr::GET(url)
+
+content <- httr::content(req)
+
+```
+
+```{r}
+#| include: false
+content$origin <- NULL
+
+```
+
+```{r}
+content
+```
+
 #### Web scraping
+
+The [`rvest` package](https://rvest.tidyverse.org/) is commonly used for web scraping:
+
+```{r}
+url <- "https://www.scrapethissite.com/pages/simple/"
+
+page <- rvest::read_html(x = url)
+
+elements <- rvest::html_elements(x = page, css = "h3.country-name")
+
+head(
+  rvest::html_text2(elements)
+)
+```
 
 ### Package Development
 
 It is a good idea to bundle useful, reusable code (especially that which you plan to share with others, and subject to testing) as a package.
 
-Creating R packages is a big topic --- too big to cover in a single session --- but you can read more about it in Hadley Wickham and Jenny Bryan's book [R Packages](https://r-pkgs.org/index.html).
+Creating R packages is a big topic --- too big to cover in a single session --- but you can read more about it in Hadley Wickham and Jenny Bryan's book [R Packages](https://r-pkgs.org/index.html). It leans heavily on the [`usethis` package](https://usethis.r-lib.org/), a set of utilities created to simplify the setup of projects / packages.
 
-### Testing
+#### Testing
 
-------------------------------------------------------------------------
+Unit testing is crucial when creating reliable packages. A little time up front writing out expectations as to what a function will return in a number of different circumstances saves you having to manually check that it does before you share your project. It also means that you can automate your tests: ensuring that it is impossible to publish work which does not demonstrably do what it set out to do.
 
-::: callout-tip
-Adding a \# to a line of R code *comments out* the rest of the line: meaning that the R interpreter ignores anything written after the \#
-:::
+The [`testthat` package](https://testthat.r-lib.org/). The R Packages book [has a section](https://r-pkgs.org/tests.html#test-workflow) on how to get up and running with tests on R packages.
+
+### Getting help
+
+To read the documentation for a function, type `?name_of_function` into the R console and hit enter.
+
+For example, to get the help documentation for `read.table`, you would type:
+
+``` r
+?read.table
+```
+
+    read.table                package:utils                R Documentation
+
+    Data Input
+
+    Description:
+
+         Reads a file in table format and creates a data frame from it,
+         with cases corresponding to lines and variables to fields in the
+         file.
+
+    Usage:
+
+         read.table(file, header = FALSE, sep = "", quote = "\"'",
+                    dec = ".", numerals = c("allow.loss", "warn.loss", "no.loss"),
+                    row.names, col.names, as.is = !stringsAsFactors,
+                    na.strings = "NA", colClasses = NA, nrows = -1,
+                    skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+                    strip.white = FALSE, blank.lines.skip = TRUE,
+                    comment.char = "#",
+                    allowEscapes = FALSE, flush = FALSE,
+                    stringsAsFactors = FALSE,
+                    fileEncoding = "", encoding = "unknown", text, skipNul = FALSE)
