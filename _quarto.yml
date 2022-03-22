@@ -13,7 +13,7 @@ website:
       - Setup.qmd
       - github.qmd
       - r.qmd
-      - wrap-up.qmd
+      # - wrap-up.qmd
 format:
   html:
     toc: true
@@ -21,7 +21,5 @@ format:
     link-external-icon: true
     link-external-newwindow: true
     css: styles.css
-    
-
 
 

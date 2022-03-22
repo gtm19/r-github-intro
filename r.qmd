@@ -2,8 +2,699 @@
 title: R
 ---
 
-Something about R
+## Introduction
 
-::: callout-tip
-Adding a \# to a line of R code *comments out* the rest of the line: meaning that the R interpreter ignores anything written after the \#
+### What is R?
+
+Starting with a good old definition from Wikipedia[^1]:
+
+[^1]: <https://en.wikipedia.org/wiki/R_(programming_language)>
+
+> R is a programming language for statistical computing and graphics supported by the R Core Team and the R Foundation for Statistical Computing. Created by statisticians Ross Ihaka and Robert Gentleman, R is used among data miners and statisticians for data analysis and developing statistical software.
+
+It may have originated as a language for statistical computing, and it still is used as such, but it is increasingly used as a more general purpose data analysis tool: for things like web scraping, data engineering, and journalism.
+
+It is also a functional programming language: which in layman's terms means that, in R, you define functions and things into them to produce some result.
+
+So, for example, to take a lower case string and make it upper case in R, you pass the string into the `toupper()` function:
+
+```{r}
+toupper("small")
+```
+
+This is different from object oriented languages like Ruby, where objects of a certain class have *methods* (basically functions) built into them. They carry them around, waiting for you to call the method on them.
+
+In Ruby, the same task of capitalising a string is done as follows (`puts` is just the command to print the output):
+
+```{ruby}
+puts "small".upcase
+```
+
+We won't dwell on the basics of R too long here: it's better to skip to doing useful stuff and fill in the basics later.
+
+## Basics of R
+
+### Installing Packages
+
+The basic unit of shareable code in R is a package. Whilst "Base R" (i.e. the functions which are installed by default when you install R) is very powerful, the open source community has added a lot of additional functionality by writing packages. Some of these are so widely used now that new users don't really distinguish them from Base R.
+
+You install packages using `install.packages()`:
+
+``` r
+install.packages("dplyr")
+```
+
+Then you can use functions from `dplyr` (like `filter`) either by loading `dplyr` in its entirety at the top of your `.R` file:
+
+```{r}
+#| message: false
+library(dplyr)
+filter(mtcars, disp >= 450)
+```
+
+and/or by using the `package::function` syntax to specify from which [namespace](https://r-pkgs.org/namespace.html?q=namespace#namespace) the function is being imported:
+
+```{r}
+dplyr::filter(mtcars, disp >= 450)
+```
+
+### Assignment operator
+
+To create a variable in R, and assign a value to it, you use the assignment operator, `<-`, like so:
+
+``` r
+variable_one <- 10
+```
+
+You can also use `=` in most, but not all, cases -- so it's probably better to use `<-` generally.
+
+### Mathematical operators
+
+`+`, `-`, `/` (for division) and `*` (for multiplication) work as you might expect.
+
+`%/%` returns the quotient of a number when divided by another number. For example, since $13 = 4 \times 3 + 1$:
+
+```{r}
+13 %/% 3
+```
+
+`%%` returns the remainder:
+
+```{r}
+13 %% 3
+```
+
+### Relational operators
+
+Relational operators are used to compare two values, returning `TRUE` or `FALSE`.
+
+They are:
+
+```{r}
+a <- 1
+b <- 10
+
+# LESS THAN
+a < b
+# LESS THAN OR EQUAL TO
+a <= b
+
+# GREATER THAN
+a > b
+# GREATER THAN OR EQUAL TO
+a >= b
+
+# EQUAL TO
+a == b
+
+# NOT EQUAL TO
+a != b
+```
+
+### Data Types
+
+R has 6 main data types (though usually you'll only come across the first 4 of them):
+
+-   character (like `"hello, world!"`)
+-   numeric (aka *double*) (real or decimal, like `3` and `3.14`)
+-   integer (like `9L`: where the `L` tells R it is an integer specifically)
+-   logical (`TRUE` or `FALSE`)
+-   complex (like `4+9i`)
+-   raw (which most of the time you really don't need to worry about)
+
+R builds more complex data types from these basic building blocks: but underneath it all, every data object in R has to be one of the above.
+
+This is done by adding *classes* to data objects. Classes are beyond the scope of this workshop, but what you need to know is that classes tell R to treat some objects in a different way when you use generic functions on them.
+
+Take the following example:
+
+```{r}
+today <- Sys.Date()
+today
+
+```
+
+Of the 6 data types listed above, `today` looks most like a character string. You can use `typeof()` to see what it actually is, and `class` to see what class it has been given so that R knows to treat it differently.
+
+```{r}
+typeof(today)
+class(today)
+```
+
+You can see the actual data object in all its classless glory using the `unclass()` function:
+
+```{r}
+unclass(today)
+```
+
+You'll see that an object with class `Date` is just the number of days since 1 January 1970 (the Unix epoch[^2]).
+
+[^2]: <https://en.wikipedia.org/wiki/Unix_time>
+
+### Vectors and Lists
+
+#### Vectors
+
+A vector is a data structure which contains a number of data elements of the same basic type.
+
+As a rule, vectors are created using the `c()` function (short for combine):
+
+```{r}
+vec_1 <- c(1, 2, 3, 4)
+length(vec_1)
+class(vec_1)
+typeof(vec_1)
+is.vector(vec_1)
+```
+
+::: callout-note
+Vectors can only contain data of the same type: if you try to mix types in a vector, all of its elements will be coerced as follows:
+
+-   logical
+-   integer
+-   double
+-   character
+
+Where R will use the type where fewest elements are coerced to `NA` values
 :::
+
+```{r}
+vec_2 <- c(TRUE, "FALSE")
+vec_2
+typeof(vec_2)
+```
+
+You can use the `c()` function to combine (and flatten) vectors together into a single vector too:
+
+```{r}
+vec_3 <- c(
+  1,
+  c(2, 3),
+  c(4, 5, c(6, 7, 8))
+)
+
+vec_3
+```
+
+This is also a good way to add an element to the end of a vector:
+
+```{r}
+vec_3 <- c(vec_3, 1000)
+vec_3
+```
+
+Sequences of integers can be created using the `:` function:
+
+```{r}
+1:20
+```
+
+You can also create vectors with named elements:
+
+```{r}
+vec_4 <- c(
+  yes = 1,
+  no = 2
+)
+
+vec_4
+```
+
+#### Lists
+
+Lists are like vectors, except every element does not have to be of the same type. They can even be lists, which means lists can be nested.
+
+You create them using the `list()` function:
+
+```{r}
+list_1 <- list(
+  1, 2, "3", list(4, 5, 6, c(7, 8, 9))
+)
+
+list_1
+
+class(list_1)
+typeof(list_1)
+```
+
+As with vectors, you can name the elements in a list:
+
+```{r}
+list_2 <- list(
+  yes = 1,
+  no = 2,
+  maybe = 3
+)
+
+list_2
+```
+
+### Data Frames
+
+Data frames are a fairly central concept when using R for analysis / data science. They are a 2 dimensional array, kind of like a table in Excel.
+
+There is a built in example data frame in R, called `mtcars`:
+
+```{r}
+class(mtcars)
+
+knitr::kable(
+  head(mtcars)
+)
+```
+
+As you can see, a data frame is actually a list of vectors:
+
+```{r}
+typeof(mtcars)
+
+unclass(head(mtcars))
+```
+
+You can create your own data frame using the `data.frame` function:
+
+```{r}
+snooker <- data.frame(
+  colour = c("red", "yellow", "green", "brown", "blue", "pink", "black"),
+  score = 1:7
+)
+
+knitr::kable(
+  snooker
+)
+```
+
+### Subsetting
+
+Unlike many other programming languages, R uses 1-based index arrays/vectors: meaning you can extract elements like so:
+
+```{r}
+some_letters <- c("A", "B", "C", "D")
+
+# First letter:
+some_letters[1]
+
+# Third letter:
+some_letters[3]
+```
+
+With named vectors, you can extract individual elements using the name, like so:
+
+```{r}
+vec_4["yes"]
+```
+
+You can do the same with lists:
+
+```{r}
+list_2["yes"]
+```
+
+::: callout-important
+Subsetting a list in this way actually returns another list. To get the element itself, either double up the square brackets:
+
+```{r}
+list_2[["yes"]]
+```
+
+or use the `$` function:
+
+```{r}
+list_2$yes
+```
+
+The key difference between single `[` and double `[[` / `$` is that the former can be used to select multiple elements:
+
+```{r}
+list_2[c(1, 2)]
+list_2[c("yes", "maybe")]
+
+```
+:::
+
+You can replace values in a vector / list by assigning values when subsetted.
+
+For example, to change the first element of `some_letters`:
+
+```{r}
+some_letters[1] <- "Z"
+some_letters
+```
+
+#### Subsetting data frames
+
+When subsetting data frames, it is important to remember that they are effectively just a list of vectors, so you can subset a column by name:
+
+```{r}
+mtcars$cyl
+```
+
+or by column number:
+
+```{r}
+mtcars[[2]]
+# or
+mtcars[,2]
+```
+
+and you can select rows like so:
+
+```{r}
+# for the first row:
+mtcars[1,]
+```
+
+### Control flow
+
+#### `if` / `else`
+
+`if` and `else` statements are used to run blocks of code only when certain conditions are met:
+
+```{r}
+n <- 4
+
+if (n %% 2 == 0) {
+  message(n, " is an even number")
+}
+```
+
+You can add in `else if` calls to the flow: the execution will exit on the first satisfied condition:
+
+```{r}
+n <- 3
+if (n == 2) {
+  message("n is 2")
+} else if (n == 3) {
+  message("n is 3")
+} else if (n*2 == 6) {
+  # the following will not execute since the sequence exited 
+  # above
+  message("n times 2 is 6")
+}
+```
+
+`else` can be used to run an expression if no previous `if` or `if else` conditions were satisfied:
+
+```{r}
+if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else if (FALSE) {
+  stop()
+} else {
+  message("hello")
+}
+```
+
+#### `for` loops
+
+`for` loops iterate over a sequence, executing the code within the block once for each item in the sequence, like so:
+
+```{r}
+for (thing in c("John", "Paul", "George", "Ringo")) {
+  message(thing, " is a member of The Beatles")
+}
+```
+
+Sometimes, the index of the item is also needed, along with the item itself. This is achieved as follows:
+
+```{r}
+beatles <- c("John", "Paul", "George", "Ringo")
+for (i in seq_along(beatles)) {
+  message(i, ". ", beatles[i], " is a member of The Beatles")
+}
+```
+
+These loops terminate automatically once they reach the end of the sequence: since a vector cannot have an infinite length, then you don't need to worry about an infinite loop.
+
+#### `while` loops
+
+`while` loops continue to execute as long as the given condition is true:
+
+```{r}
+i <- 0
+while (i <= 3) {
+  message("The value of i is ", i)
+  i <- i + 1
+}
+```
+
+Since this loop will continue as long as the value of `i` is less than or equal to `3`, it is imperative that the body of the loop increments `i`. If it doesn't, the loop will run infinitely.
+
+#### `repeat` loops
+
+`repeat` loops are very similar to `while` loops, except there is no preceding condition which is tested on the way in to decide whether to execute the expression within the block: you need to use `break` to manually exit the loop.
+
+```{r}
+i <- 0
+repeat {
+  message("The value of i is ", i)
+  i <- i + 1
+  if (i > 3) break
+}
+```
+
+You can also use `next` to skip execution in certain conditions - for example for odd numbered indices:
+
+```{r}
+i <- 0
+repeat {
+  i <- i + 1
+  if (i %% 2 == 1) next
+  if (i > 10) break
+  message("The value of i is ", i)
+}
+```
+
+### Creating Functions
+
+As a rule, code which is repeated numerous times in your scripts, or which you run regularly with different inputs, or which you want a way to test easily, should be extracted into a function.
+
+Functions are (generally) defined in R using `function` :
+
+```{r}
+new_func <- function() {
+  message("hello")
+}
+```
+
+You then *call* a function by executing it with `()` at the end:
+
+```{r}
+new_func()
+```
+
+You can read much, *much* more about how functions work by reading the *Functions* chapter in [Advanced R](https://adv-r.hadley.nz/functions.html) by Hadley Wickham, but for now it's worth noting that functions have 3 elements:
+
+-   formals, or arguments
+
+-   body
+
+-   environment
+
+The formals are what go inside the brackets when defining the function. Variables which may be different each time the function is called would be fed in via these arguments. For example:
+
+```{r}
+doubler <- function(n) {
+  n * 2
+}
+
+doubler(10)
+doubler(40)
+```
+
+The body is just the code which will be executed: this sits between the curly brackets.
+
+It's a very good idea to add argument validation towards the top of your function's body as well:
+
+```{r}
+#| error: true
+doubler <- function(n) {
+  if (is.character(n)) stop("n must be a number")
+  n * 2
+}
+
+doubler("ten")
+```
+
+To understand more about *environments*, recommended reading is the section about [*lexical scoping* in Advanced R](https://adv-r.hadley.nz/functions.html#lexical-scoping). At this point, it's useful to mention that a function will try to use the "most locally" defined variable with the same name, looking first at its own environment, and if it does not find it, in the environment in which it was called.
+
+Also, the calltime environments of functions are transient: variables which are created on execution will not generally continue to exist once the function exits.
+
+```{r}
+#| error: true
+x <- 10
+y <- 20
+
+random_function <- function() {
+  x <- 100
+  z <- 30
+  
+  x + y + z
+}
+
+random_function()
+
+x
+y
+z
+```
+
+### Functional Programming (`apply` functions)
+
+A **functional** is any function that takes a function as an
+input and returns a vector as output.
+
+Here is a simple example:
+
+```{r}
+numbers <- c(1, 2, 3, 4, 5, 6)
+
+some_functional <- function(f) {
+  f(numbers)
+}
+
+some_functional(mean)
+some_functional(range)
+some_functional(sum)
+```
+
+They are most often used to perform the same action on every element of a list or vector. Base R has the `lapply` family of functions to do this:
+
+```{r}
+some_names <- c("bob", "jane", "eric")
+
+lapply(some_names, toupper)
+```
+
+The first argument is the vector on which you want to iterate over and apply the second argument (a function) to. As you can see, `lapply` returns a list by default.
+
+Sometimes, the functions you supply to `lapply` have additional arguments which you'd like to specify. You can provide additional, named, arguments in the call to `lapply`:
+
+```{r}
+some_numbers <- list(
+  c(1, 4, NA),
+  c(10, 10, 200),
+  c(9, 8, NA, 100, 542)
+)
+
+lapply(some_numbers, sum)
+lapply(some_numbers, sum, na.rm = TRUE)
+```
+
+### Useful Data Sciencey tasks
+
+Having covered a few of the basics of R, it is worthwhile running through some practical tasks which are useful day-to-day.
+
+#### Reading / writing `csv` files
+
+#### `read.csv`
+
+```{r}
+countries <- read.csv(
+  "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/all/all.csv"
+)
+
+knitr::kable(
+  head(countries)
+)
+```
+
+`write.csv`
+
+``` r
+write.csv(countries, "path/to/file.csv")
+```
+
+#### Querying APIs
+
+At the moment, I would recommend using the [`httr` package](https://httr.r-lib.org/) for HTTP requests.
+
+::: callout-important
+The [`httr2` package](https://httr2.r-lib.org/) is currently in development and will likely replace `httr`. This package has a very different API to `httr` , so don't get too attached to this example.
+:::
+
+```{r, simple_get_request}
+url <- "https://httpbin.org/anything?filter=everything&goal=show%20how%20to%20api%20request"
+
+req <- httr::GET(url)
+
+content <- httr::content(req)
+
+```
+
+```{r}
+#| include: false
+content$origin <- NULL
+
+```
+
+```{r}
+content
+```
+
+#### Web scraping
+
+The [`rvest` package](https://rvest.tidyverse.org/) is commonly used for web scraping:
+
+```{r}
+url <- "https://www.scrapethissite.com/pages/simple/"
+
+page <- rvest::read_html(x = url)
+
+elements <- rvest::html_elements(x = page, css = "h3.country-name")
+
+head(
+  rvest::html_text2(elements)
+)
+```
+
+### Package Development
+
+It is a good idea to bundle useful, reusable code (especially that which you plan to share with others, and subject to testing) as a package.
+
+Creating R packages is a big topic --- too big to cover in a single session --- but you can read more about it in Hadley Wickham and Jenny Bryan's book [R Packages](https://r-pkgs.org/index.html). It leans heavily on the [`usethis` package](https://usethis.r-lib.org/), a set of utilities created to simplify the setup of projects / packages.
+
+#### Testing
+
+Unit testing is crucial when creating reliable packages. A little time up front writing out expectations as to what a function will return in a number of different circumstances saves you having to manually check that it does before you share your project. It also means that you can automate your tests: ensuring that it is impossible to publish work which does not demonstrably do what it set out to do.
+
+The [`testthat` package](https://testthat.r-lib.org/). The R Packages book [has a section](https://r-pkgs.org/tests.html#test-workflow) on how to get up and running with tests on R packages.
+
+### Getting help
+
+To read the documentation for a function, type `?name_of_function` into the R console and hit enter.
+
+For example, to get the help documentation for `read.table`, you would type:
+
+``` r
+?read.table
+```
+
+    read.table                package:utils                R Documentation
+
+    Data Input
+
+    Description:
+
+         Reads a file in table format and creates a data frame from it,
+         with cases corresponding to lines and variables to fields in the
+         file.
+
+    Usage:
+
+         read.table(file, header = FALSE, sep = "", quote = "\"'",
+                    dec = ".", numerals = c("allow.loss", "warn.loss", "no.loss"),
+                    row.names, col.names, as.is = !stringsAsFactors,
+                    na.strings = "NA", colClasses = NA, nrows = -1,
+                    skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+                    strip.white = FALSE, blank.lines.skip = TRUE,
+                    comment.char = "#",
+                    allowEscapes = FALSE, flush = FALSE,
+                    stringsAsFactors = FALSE,
+                    fileEncoding = "", encoding = "unknown", text, skipNul = FALSE)
