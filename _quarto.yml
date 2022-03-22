@@ -13,7 +13,7 @@ website:
       - Setup.qmd
       - github.qmd
       - r.qmd
-      - wrap-up.qmd
+      # - wrap-up.qmd
 format:
   html:
     toc: true

@@ -34,6 +34,30 @@ We won't dwell on the basics of R too long here: it's better to skip to doing us
 
 ## Basics of R
 
+### Installing Packages
+
+The basic unit of shareable code in R is a package. Whilst "Base R" (i.e. the functions which are installed by default when you install R) is very powerful, the open source community has added a lot of additional functionality by writing packages. Some of these are so widely used now that new users don't really distinguish them from Base R.
+
+You install packages using `install.packages()`:
+
+``` r
+install.packages("dplyr")
+```
+
+Then you can use functions from `dplyr` (like `filter`) either by loading `dplyr` in its entirety at the top of your `.R` file:
+
+```{r}
+#| message: false
+library(dplyr)
+filter(mtcars, disp >= 450)
+```
+
+and/or by using the `package::function` syntax to specify from which [namespace](https://r-pkgs.org/namespace.html?q=namespace#namespace) the function is being imported:
+
+```{r}
+dplyr::filter(mtcars, disp >= 450)
+```
+
 ### Assignment operator
 
 To create a variable in R, and assign a value to it, you use the assignment operator, `<-`, like so:
@@ -380,19 +404,137 @@ repeat {
 }
 ```
 
+### Creating Functions
+
+As a rule, code which is repeated numerous times in your scripts, or which you run regularly with different inputs, or which you want a way to test easily, should be extracted into a function.
+
+Functions are (generally) defined in R using `function` :
+
+```{r}
+new_func <- function() {
+  message("hello")
+}
+```
+
+You then *call* a function by executing it with `()` at the end:
+
+```{r}
+new_func()
+```
+
+You can read much, *much* more about how functions work by reading the *Functions* chapter in [Advanced R](https://adv-r.hadley.nz/functions.html) by Hadley Wickham, but for now it's worth noting that functions have 3 elements:
+
+-   formals, or arguments
+
+-   body
+
+-   environment
+
+The formals are what go inside the brackets when defining the function. Variables which may be different each time the function is called would be fed in via these arguments. For example:
+
+```{r}
+doubler <- function(n) {
+  n * 2
+}
+
+doubler(10)
+doubler(40)
+```
+
+The body is just the code which will be executed: this sits between the curly brackets.
+
+It's a very good idea to add argument validation towards the top of your function's body as well:
+
+```{r}
+#| error: true
+doubler <- function(n) {
+  if (is.character(n)) stop("n must be a number")
+  n * 2
+}
+
+doubler("ten")
+```
+
+To understand more about *environments*, recommended reading is the section about [*lexical scoping* in Advanced R](https://adv-r.hadley.nz/functions.html#lexical-scoping). At this point, it's useful to mention that a function will try to use the "most locally" defined variable with the same name, looking first at its own environment, and if it does not find it, in the environment in which it was called.
+
+Also, the calltime environments of functions are transient: variables which are created on execution will not generally continue to exist once the function exits.
+
+```{r}
+#| error: true
+x <- 10
+y <- 20
+
+random_function <- function() {
+  x <- 100
+  z <- 30
+  
+  x + y + z
+}
+
+random_function()
+
+x
+y
+z
+```
+
 ### Functional Programming (`apply` functions)
 
-### Creating Functions
+A **functional** is any function that takes a function as an
+input and returns a vector as output.
+
+Here is a simple example:
+
+```{r}
+numbers <- c(1, 2, 3, 4, 5, 6)
+
+some_functional <- function(f) {
+  f(numbers)
+}
+
+some_functional(mean)
+some_functional(range)
+some_functional(sum)
+```
+
+They are most often used to perform the same action on every element of a list or vector. Base R has the `lapply` family of functions to do this:
+
+```{r}
+some_names <- c("bob", "jane", "eric")
+
+lapply(some_names, toupper)
+```
+
+The first argument is the vector on which you want to iterate over and apply the second argument (a function) to. As you can see, `lapply` returns a list by default.
+
+Sometimes, the functions you supply to `lapply` have additional arguments which you'd like to specify. You can provide additional, named, arguments in the call to `lapply`:
+
+```{r}
+some_numbers <- list(
+  c(1, 4, NA),
+  c(10, 10, 200),
+  c(9, 8, NA, 100, 542)
+)
+
+lapply(some_numbers, sum)
+lapply(some_numbers, sum, na.rm = TRUE)
+```
 
 ### Useful Data Sciencey tasks
 
-#### Reading / writing csvs
+Having covered a few of the basics of R, it is worthwhile running through some practical tasks which are useful day-to-day.
+
+#### Reading / writing `csv` files
 
 #### Querying APIs
 
 #### Web scraping
 
-### Packages
+### Package Development
+
+It is a good idea to bundle useful, reusable code (especially that which you plan to share with others, and subject to testing) as a package.
+
+Creating R packages is a big topic --- too big to cover in a single session --- but you can read more about it in Hadley Wickham and Jenny Bryan's book [R Packages](https://r-pkgs.org/index.html).
 
 ### Testing
 
