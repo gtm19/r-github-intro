@@ -508,7 +508,7 @@ doubler(10)
 doubler(40)
 ```
 
-The body is just the code which will be executed: this sits between the curly brackets.
+The body is just the code which will be executed: this sits between the curly brackets. The last line of the body will be *returned* by the function (meaning you can assign its value to something if you want).
 
 It's a very good idea to add argument validation towards the top of your function's body as well:
 
@@ -547,8 +547,7 @@ z
 
 ### Functional Programming (`apply` functions)
 
-A **functional** is any function that takes a function as an
-input and returns a vector as output.
+A **functional** is any function that takes a function as an input and returns a vector as output.
 
 Here is a simple example:
 
